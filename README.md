@@ -47,20 +47,24 @@ POST data:
 
 Return:
 {
-    "serial": "364a-9569-d5b5-3ab3-044b",
-    "data": [
+
+    "serial":"364a-9569-d5b5-3ab3-044b",
+    "data":[
         {
-            "unix-time": 1712505476, //double int - unix time stamp
-            "status": "OK" //Smazat z Gateway DB
+            "unix-time":1712505476,
+            "status":"OK",
+            "type":"already-exists"
         },
         {
-            "unix-time": 1712505478, //double int
-            "status": "KO" //Poslat přístě z Gateway FB znova
+            "unix-time":1712505478,
+            "status":"OK",
+            "type":"already-exists"
         }
     ],
-    "co2-setting": { //Nastaveni semaforu pro indikaci úrovně CO2
-        "red": 1500,
-        "yellow": 1000,
-        "green": 0 //spodni limit pro zelenou LED
+    "co2-setting":{
+        "red":1499,
+        "yellow":999,
+        "green":99
     }
+
 }
