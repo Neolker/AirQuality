@@ -1,0 +1,4 @@
+fa-brands-400
+fa-regular-400
+fa-solid-900
+fa-v4compatibility
