@@ -2,7 +2,7 @@
 class Uvod extends Modul{	
 	public function hlavniFunkce(){		
 		global $systemoveUrl;
-		$this->nastavSeo('úvodní strana','seo popis','seo kw','');
+		$this->nastavSeo('Vítejte','AirQuality','AirQuality','');
 		$tpl=new Sablona();		
 		$tpl->nastavDebugMod($this->debugVars);		
 		$tpl->pridatPromennou('uzivatel',$this->uzivatel);		
