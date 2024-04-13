@@ -1,6 +1,33 @@
-import { LineChart } from "@mantine/charts";
-import { Space, Title } from "@mantine/core";
+import { DonutChart, LineChart } from "@mantine/charts";
+import { Center, Container, Space, Title } from "@mantine/core";
 import { useMemo } from "react";
+
+function calculateIndividualAQI(
+  concentration: number,
+  lowConcentration: number,
+  highConcentration: number,
+  lowIndex: number,
+  highIndex: number
+) {
+  return (
+    ((highIndex - lowIndex) / (highConcentration - lowConcentration)) *
+      (concentration - lowConcentration) +
+    lowIndex
+  );
+}
+
+function calculateAQI(data: any[]) {
+  return data.map((dataPoint) => {
+    const co2Aqi = calculateIndividualAQI(dataPoint.CO2, 400, 500, 0, 50);
+    const vocAqi = calculateIndividualAQI(dataPoint.VOC, 100, 150, 0, 50);
+    const noxAqi = calculateIndividualAQI(dataPoint.NOx, 20, 50, 0, 50);
+
+    // Simplified AQI calculation: taking the max of the calculated AQIs
+    const maxAqi = Math.max(co2Aqi, vocAqi, noxAqi);
+
+    return { ...dataPoint, AQI: Math.round(maxAqi) };
+  });
+}
 
 const App = () => {
   const data = useMemo(() => {
@@ -23,42 +50,118 @@ const App = () => {
     return dataPoints;
   }, []);
 
+  const dataWithAQI = calculateAQI(data);
+
   return (
     <>
-      <Title order={2}>CO2, VOC and NOx</Title>
-      <Space h="md" />
+      <Container>
+        <Center>
+          <Title order={2}>Air Quality Index</Title>
+          <Space h="md" />
+          <DonutChart
+            strokeWidth={0}
+            thickness={30}
+            data={[
+              {
+                name: "Air Quality Index",
+                value: dataWithAQI[dataWithAQI.length - 1].AQI,
+                color: "green.6",
+              },
+            ]}
+            chartLabel={dataWithAQI[dataWithAQI.length - 1].AQI}
+            strokeColor="var(--card-bg)"
+          />
+          <LineChart
+            h={300}
+            data={dataWithAQI}
+            dataKey="date"
+            series={[{ name: "AQI", color: "gray.6" }]}
+            curveType="monotone"
+            withLegend
+            legendProps={{ verticalAlign: "bottom", height: 50 }}
+            dotProps={{ r: 0 }}
+            lineChartProps={{ syncId: "air" }}
+            referenceLines={[
+              { y: 0, label: "Good ↑ (less is better)", color: "green.6" },
+              { y: 51, label: "Moderate ↑", color: "yellow.6" },
+              { y: 101, label: "Unhealthy ↑", color: "orange.6" },
+              { y: 201, label: "Very Unhealthy ↑", color: "red.6" },
+              { y: 301, label: "Hazardous ↑", color: "red.6" },
+            ]}
+          />
+        </Center>
+      </Container>
 
+      <Space h="lg" />
+
+      <Title order={2}>CO2</Title>
+      <Space h="md" />
       <LineChart
         h={300}
         data={data}
         dataKey="date"
-        series={[
-          { name: "CO2", color: "blue.6" },
-          { name: "VOC", color: "green.6" },
-          { name: "NOx", color: "red.6" },
-        ]}
+        series={[{ name: "CO2", color: "blue.6" }]}
         curveType="monotone"
         withLegend
         legendProps={{ verticalAlign: "bottom", height: 50 }}
-        dotProps={{ r:0 }}
+        dotProps={{ r: 0 }}
+        lineChartProps={{ syncId: "air" }}
       />
       <Space h="md" />
-      <Title order={2}>Tempreture and Humidity</Title>
+      <Title order={2}>VOC</Title>
       <Space h="md" />
-
       <LineChart
         h={300}
         data={data}
         dataKey="date"
-        series={[
-          { name: "Temperature", color: "orange.6" },
-          { name: "Humidity", color: "blue.6" },
-        ]}
+        series={[{ name: "VOC", color: "green.6" }]}
         curveType="monotone"
         withLegend
         legendProps={{ verticalAlign: "bottom", height: 50 }}
-        dotProps={{ r:0 }}
-
+        dotProps={{ r: 0 }}
+        lineChartProps={{ syncId: "air" }}
+      />
+      <Space h="md" />
+      <Title order={2}>NOx</Title>
+      <Space h="md" />
+      <LineChart
+        h={300}
+        data={data}
+        dataKey="date"
+        series={[{ name: "NOx", color: "red.6" }]}
+        curveType="monotone"
+        withLegend
+        legendProps={{ verticalAlign: "bottom", height: 50 }}
+        dotProps={{ r: 0 }}
+        lineChartProps={{ syncId: "air" }}
+      />
+      <Space h="md" />
+      <Title order={2}>Tempreture</Title>
+      <Space h="md" />
+      <LineChart
+        h={300}
+        data={data}
+        dataKey="date"
+        series={[{ name: "Temperature", color: "orange.6" }]}
+        curveType="monotone"
+        withLegend
+        legendProps={{ verticalAlign: "bottom", height: 50 }}
+        dotProps={{ r: 0 }}
+        lineChartProps={{ syncId: "air" }}
+      />
+      <Space h="md" />
+      <Title order={2}>Humidity</Title>
+      <Space h="md" />
+      <LineChart
+        h={300}
+        data={data}
+        dataKey="date"
+        series={[{ name: "Humidity", color: "blue.6" }]}
+        curveType="monotone"
+        withLegend
+        legendProps={{ verticalAlign: "bottom", height: 50 }}
+        dotProps={{ r: 0 }}
+        lineChartProps={{ syncId: "air" }}
       />
     </>
   );
