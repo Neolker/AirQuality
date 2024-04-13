@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: md406.wedos.net:3306
--- Generation Time: Apr 13, 2024 at 10:32 AM
+-- Generation Time: Apr 13, 2024 at 03:35 PM
 -- Server version: 10.4.31-MariaDB-log
 -- PHP Version: 5.4.23
 
@@ -108,12 +108,12 @@ CREATE TABLE IF NOT EXISTS `zarizeni` (
   `zid` int(11) NOT NULL AUTO_INCREMENT,
   `id_uzivatele` int(11) DEFAULT 0,
   `nazev` varchar(256) DEFAULT NULL,
-  `vyrobni-cislo` varchar(256) DEFAULT NULL,
+  `vyrobni_cislo` varchar(256) DEFAULT NULL,
   `nastaveni_co2_cervena` int(11) DEFAULT 1500,
   `nastaveni_co2_zluta` int(11) DEFAULT 1000,
   `nastaveni_co2_zelena` int(11) DEFAULT 0,
   PRIMARY KEY (`zid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
