@@ -1,6 +1,5 @@
-<?if($uzivatel->uid>0&&$uzivatel->data->prava>1&&$uzivatel->data->rezim_uprav==1){?>
-	<div class="align-right">
-		<a class="admin-btn" href="<?=Anchor(array('modul'=>'aObsahWebuUvodniStranka'));?>" target="_blank" title="Otevřít administraci úvodní stránky"><fa class="fa fa-screwdriver-wrench"></fa> Administrace stránky</a>
-	</div>
-<?}?>
-<?=$pluginy;?>
+<br /><br /><br /><br />
+<p><b>Vítejte v projektu Air-quality.</b></p>
+<p>Pokud máte nové zařízení Air-quality, zaregistrujte jej po přihlášení či po registraci zde: <b><a href="https://air-quality.tes-t.cz/">air-quality.tes-t.cz</a></b> .</p>
+<p>Tato stránka slouží pouze pro sběr dat z IOT zařízení Air-quality a pro <a href="/administrace/">technické zázemí</a> projektu.</p>
+<br /><br /><br /><br />
