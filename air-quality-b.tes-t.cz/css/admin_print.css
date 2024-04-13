@@ -1,0 +1,24 @@
+@charset "UTF-8";
+@media print{       
+	@page{size: auto; margin:1.5cm .5cm}
+	*{border-color:#000!important;background:transparent!important;color:#000!important;box-shadow:none!important;text-shadow:none!important; max-width: 100% !important}
+	html{font-size:9.75pt;color:#000 !important}
+	body{margin:16px}
+	p,h2,h3{orphans:3;widows:3}
+	h1,h2,h3{page-break-after:avoid}
+	pre,blockquote{page-break-inside:avoid}
+	thead{display:table-header-group}
+	tr,img{page-break-inside:avoid}
+	abbr,acronym{border-bottom-width:thin}
+	img{max-width:100%!important}
+	hr{background-color:transparent;background-image:none;filter:none;border-width:thin}
+	hr:before{display:none}table[border]{border-width:thin}
+	table[border] td,table[border] th{border-width:thin}table[border=""],table[border="0"]{border-width:0}
+	table[border=""] td,table[border="0"] td,table[border=""] th,table[border="0"] th{border-width:0}
+	table{page-break-inside: avoid}
+	a{text-decoration: none}
+	.administration-bar, .kernel-message, .kernel_info_box, .kernel_info_box_2, #admin-bar{display: none !important} 
+	.no-print{display: none !important}
+	header, footer{display:none;}
+	.bg-menu-lighter{display:none;}
+}
