@@ -22,9 +22,9 @@ function initMinimalHeight(){
 	let ww=$(window).width();
 	let mh=$('#main').height();
 		if(ww>700){
-			if(wh>mh&&wh>150){$('#main').css('min-height',(wh-135)+"px");}
+			if(wh>mh&&wh>150){$('#main').css('min-height',(wh-95)+"px");}
 		}else{		
-			if(wh>mh&&wh>315){$('#main').css('min-height',(wh-315)+"px");}
+			if(wh>mh&&wh>315){$('#main').css('min-height',(wh-95)+"px");} 
 		}
 	}
 function autoscroll() {
