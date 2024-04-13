@@ -8,3 +8,4 @@ $systemoveUrl["/?modul=aPromenneNastaveni"]="administrace/nastaveni/promenne-nas
 $systemoveUrl["/?modul=Uvod"]="uvod/";
 $systemoveUrl["/?modul=Sitemapa"]="404/";
 $systemoveUrl["/?modul=Sitemapa&akce=robots"]="robots.txt";
+$systemoveUrl["/?modul=DatovaAktualizace"]="data-update/";
