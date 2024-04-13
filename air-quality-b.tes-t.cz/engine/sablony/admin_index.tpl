@@ -117,7 +117,7 @@ if(((int)getget('isAjax','0'))==0){
 					<a href="<?=Anchor(array('modul'=>'Administrace'));?>" class="admin-bar-button admin-bar-jump active">
 						<i class="fa fa-cube fa-big"></i><span class="admin-bar-tooltip">Přejít&nbsp;do&nbsp;administrace</span>
 					</a>
-					<a href="/<?=$menuJazyku->kodSoucasnehoJazyka;?>/" class="admin-bar-button">
+					<a href="/" class="admin-bar-button">
 						<i class="fa fa-house-chimney fa-big"></i><span class="admin-bar-tooltip">Přejít&nbsp;na&nbsp;web</span>
 					</a>		
 										

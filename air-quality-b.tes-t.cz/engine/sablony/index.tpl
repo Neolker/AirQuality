@@ -15,8 +15,7 @@ if(((int)getget('isAjax','0'))==0){
    	<?/*favicons,theme:*/?>
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.ico">
-    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />    
-    <link rel="mask-icon" href="/img/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />        
     <meta name="msapplication-TileColor" content="#de1835">
     <meta name="theme-color" content="#ffffff">    
     <?/*css:*/?>
@@ -39,40 +38,22 @@ if(((int)getget('isAjax','0'))==0){
 	</head>
 	<body>
 <?}/* --- KONEC BEZ AJAXU --- */?>	
-		
-			<header role="banner" id="page-header">
-		  	<div class="wrap full mw-1920">
-					<div class="logo no-print">
-					  <a href="<?=Anchor(array('modul'=>'Uvod','idj'=>$pouzityJazyk));?>" title="<?=$preklady['prejit-na-uvod'];?>"><img src="/img/logos/logo.svg" alt="<?=$nastaveni['jmeno-projektu'];?>" /></a>
-					</div>   					
-					
-																									
-				</div>    	    
-			</header>
+	
+		<header role="banner" id="page-header">
+	  	<div class="wrap full mw-1920">
+				<div class="logo no-print">
+				  <h1 class="gap-0"><?=$nastaveni['jmeno-projektu'];?></h1>
+				</div>   																																			
+			</div>    	    
+		</header>
 		
    
 		<main role="main" <?if($uzivatel->uid>0){?>class="bg-cream"<?}?> id="main" >
-			<div class="wrap">
+			<div class="wrap align-center">
 				<?=$dataModulu?>
 			</div>
 		</main>					
-		<footer role="contentinfo" class="bg-gray">
-		
-			<div class="wrap full pad-0 gap-0-a pad-top-16 mw-1920">
-				<div class="grid footer-bottom">
-					<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 color-white pad-left-32 pad-right-32">
-						<div class="flex justify-content-space-between align-items-center footer-copyright">
-							
-							<div class="size-12">
-								<em class="fa-regular fa-copyright"></em>
-								
-							</div>							
-							
-						</div>
-					</div>
-				</div>
-			</div>
-		</footer>
+
 		<?if($uzivatel->uid>0&&$uzivatel->data->prava>1){?>			
 			<div id="admin-bar" class="no-print">
 				<div class="admin-bar-visiblemenu">				
@@ -83,11 +64,11 @@ if(((int)getget('isAjax','0'))==0){
 					<a href="<?=Anchor(array('modul'=>'Administrace'));?>" class="admin-bar-button admin-bar-jump">
 						<i class="fa fa-cube fa-big"></i><span class="admin-bar-tooltip">Přejít&nbsp;do&nbsp;administrace</span>
 					</a>
-					<?if(isset($jazyky)&&is_array($jazyky)&&count($jazyky)>0){foreach($jazyky as $j){if($j->vychozi==1){?>
-						<a href="/<?=$j->kod_jazyka;?>/" class="admin-bar-button active">
-							<i class="fa fa-house-chimney fa-big"></i><span class="admin-bar-tooltip">Přejít&nbsp;na&nbsp;web</span>
-						</a>			
-					<?}}}?>					
+					
+					<a href="/" class="admin-bar-button active">
+						<i class="fa fa-house-chimney fa-big"></i><span class="admin-bar-tooltip">Přejít&nbsp;na&nbsp;web</span>
+					</a>			
+					
 									
 					<?if($uzivatel->data->prava==3){?>
 						<a href="<?=Anchor(array('modul'=>'Administrace','akce'=>'mhm-info','rurl'=>safeurlBase64Encode(str_replace('isAjax=1','isAjax=0',$_SERVER['REQUEST_URI']))));?>" class="admin-bar-button admin-bar-jump <?if($uzivatel->data->infomode==1){?>active<?}?>">
