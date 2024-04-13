@@ -9,14 +9,14 @@ Class MHMmailer{
 	public function __construct($debug=false){						
 		$this->phpMailer=new PHPMailer();
 		$this->phpMailer->IsSMTP();
-		$this->phpMailer->Host="wes1-smtp.wedos.net";
-		$this->phpMailer->Username="info@tes-t.cz";
-    $this->phpMailer->Password="$2q4AE]w0";
+		$this->phpMailer->Host="DOPLNIT";
+		$this->phpMailer->Username="DOPLNIT";
+    $this->phpMailer->Password="DOPLNIT";
 		$this->phpMailer->Port=587;
 		$this->phpMailer->SMTPAuth=true;
     $this->phpMailer->SMTPAutoTLS=true;  
 		$this->phpMailer->IsHTML(true); 
-		$this->phpMailer->setFrom('info@tes-t.cz');
+		$this->phpMailer->setFrom('DOPLNIT');
 		$this->phpMailer->CharSet="UTF-8";
 		if($debug==true){
 			$this->phpMailer->SMTPDebug=1;
