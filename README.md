@@ -10,6 +10,7 @@ POST
 
 POST data: 
 {
+
     "serial":"364a-9569-d5b5-3ab3-044b",
     "data":[
         {
@@ -43,6 +44,7 @@ POST data:
             "position":3
         }
     ]
+
 }
 
 Return:
