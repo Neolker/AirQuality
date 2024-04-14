@@ -70,3 +70,13 @@ Return:
     }
 
 }
+
+Vysvětlivka dat:
+
+Trend: -1 = klesání, 0 = konstatní, 1 = nárust
+
+Pozice: 0 = horní strana, 1 = spodní strana, 2 = levá strana, 3 = pravá strana, 4 = přední strana, 5 = zadní strana
+
+Status: OK = v pořádku, KO = není v pořádku
+
+Type: not-insert = záznam neuložen, already-exists = záznam již existuje a nový nebyl uložen, insert = záznam úspěšně uložen
