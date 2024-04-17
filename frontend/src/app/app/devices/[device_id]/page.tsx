@@ -13,7 +13,7 @@ function calculateIndividualAQI(
     ((highIndex - lowIndex) / (highConcentration - lowConcentration)) *
       (concentration - lowConcentration) +
     lowIndex
-  );Í
+  );
 }
 
 function calculateAQI(data: any[]) {
