@@ -9,8 +9,8 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { IconChartLine, IconEdit, IconUnlink } from "@tabler/icons-react";
-import classes from "./DeviceCard.module.css";
 import { useRouter } from "next/navigation";
+import classes from "./DeviceCard.module.css";
 
 export function DeviceCard({
   id,
