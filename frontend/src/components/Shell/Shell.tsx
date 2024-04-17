@@ -3,19 +3,20 @@
 import { AppShell, Burger, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import {
-  IconBellRinging,
-  IconBrandAppleArcade,
-  IconFingerprint,
+  IconDashboard,
+  IconCpu2,
+  IconLogout,
   IconSettings,
 } from "@tabler/icons-react";
 import { useState } from "react";
 import classes from "./Shell.module.css";
+import { useRouter } from "next/navigation";
 
 const data = [
-  { link: "", label: "Devices", icon: IconBrandAppleArcade },
-  { link: "", label: "Notifications", icon: IconBellRinging },
-  { link: "", label: "Authentication", icon: IconFingerprint },
-  { link: "", label: "Settings", icon: IconSettings },
+  { link: "/app", label: "Dashboard", icon: IconDashboard },
+  { link: "/app/devices", label: "Devices", icon: IconCpu2 },
+  { link: "/app/settings", label: "Settings", icon: IconSettings },
+  { link: "/", label: "Log out", icon: IconLogout },
 ];
 
 export function Shell({
@@ -25,7 +26,9 @@ export function Shell({
 }>) {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
-  const [active, setActive] = useState("Devices");
+  const [active, setActive] = useState("Dashboard");
+  const router = useRouter();
+
 
   const links = data.map((item) => (
     <a
@@ -36,6 +39,7 @@ export function Shell({
       onClick={(event) => {
         event.preventDefault();
         setActive(item.label);
+        router.push(item.link);
       }}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
