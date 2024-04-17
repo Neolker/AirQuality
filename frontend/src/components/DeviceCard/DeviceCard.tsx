@@ -46,7 +46,7 @@ export function DeviceCard({
       <Card.Section className={classes.footer}>
         <Group justify="space-between">
           <Group>
-            <ActionIcon variant="filled" color="gray" size="lg">
+            <ActionIcon variant="subtle" size="lg">
               <IconChartLine
                 style={{ width: "70%", height: "70%" }}
                 color={theme.colors.blue[6]}
@@ -56,7 +56,7 @@ export function DeviceCard({
                 }}
               />
             </ActionIcon>
-            <ActionIcon variant="filled" color="gray" size="lg">
+            <ActionIcon variant="subtle" color="gray" size="lg">
               <IconEdit
                 style={{ width: "70%", height: "70%" }}
                 color={theme.colors.blue[6]}
