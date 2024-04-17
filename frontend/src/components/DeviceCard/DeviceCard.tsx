@@ -46,14 +46,17 @@ export function DeviceCard({
       <Card.Section className={classes.footer}>
         <Group justify="space-between">
           <Group>
-            <ActionIcon variant="subtle" size="lg">
+            <ActionIcon
+              variant="subtle"
+              size="lg"
+              onClick={() => {
+                router.push(`/app/devices/${id}`);
+              }}
+            >
               <IconChartLine
                 style={{ width: "70%", height: "70%" }}
                 color={theme.colors.blue[6]}
                 stroke={1.5}
-                onClick={() => {
-                  router.push(`/app/devices/${id}`);
-                }}
               />
             </ActionIcon>
             <ActionIcon variant="subtle" color="gray" size="lg">
