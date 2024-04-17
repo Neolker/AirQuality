@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { DonutChart, LineChart } from "@mantine/charts";
 import { Center, Container, Space, Title } from "@mantine/core";
 import { useMemo } from "react";
@@ -14,7 +13,7 @@ function calculateIndividualAQI(
     ((highIndex - lowIndex) / (highConcentration - lowConcentration)) *
       (concentration - lowConcentration) +
     lowIndex
-  );
+  );Í
 }
 
 function calculateAQI(data: any[]) {
