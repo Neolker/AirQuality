@@ -36,12 +36,9 @@ export default function Home() {
             size="md"
             onClick={(e) => {
               e.preventDefault();
-              if (
-                document.querySelector('input[name="email"]').value ===
-                  "test" &&
-                document.querySelector('input[name="password"]').value ===
-                  "test"
-              ) {
+              let email = (document.querySelector('input[name="email"]') as HTMLInputElement)!.value || "";
+              let password = (document.querySelector('input[name="password"]') as HTMLInputElement)!.value || "";
+              if (email === "test" && password === "test") {
                 router.push("/app");
               } else {
                 alert("Credentials are test/test");
