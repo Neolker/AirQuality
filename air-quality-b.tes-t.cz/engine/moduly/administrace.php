@@ -8,8 +8,6 @@ class Administrace extends Modul{
 			elseif($akce=='nocni-rezim'){return $this->aktivujNocniRezim();}	
 			elseif($akce=='chytre-nacitani'){return $this->aktivujChytreNacitani();}	
 			elseif($akce=='klasicke-nacitani'){return $this->aktivujKlasickeNacitani();}
-			elseif($akce=='rezim-uprav'){return $this->aktivujRezimUprav();}	
-			elseif($akce=='rezim-zobrazeni'){return $this->aktivujRezimZobrazeni();}	
 			elseif($akce=='mhm-info'){return $this->aktivujRezimMHMInfo();}
 			elseif($akce=='mhm-vars'){return $this->aktivujRezimMHMVars();}
 			elseif($akce=='mhm-error'){return $this->aktivujRezimMHMErrors();}				
@@ -71,24 +69,6 @@ class Administrace extends Modul{
 		if($returnUrl==''){$returnUrl='/';}
 		_redirectBasic($returnUrl);
 		}	
-	public function aktivujRezimUprav(){
-		if($this->uzivatel->uid>0){
-			$this->modely->UzivateleDb->updateId($this->uzivatel->uid,array('rezim_uprav'=>'1')); 
-			}
-		$returnUrl=strip_tags(trim(safeurlBase64Decode(getget('rurl'))));
-		$returnUrl=str_replace('isAjax=','a=',$returnUrl);
-		if($returnUrl==''){$returnUrl='/';}
-		_redirectBasic($returnUrl);
-		}
-	public function aktivujRezimZobrazeni(){
-		if($this->uzivatel->uid>0){
-			$this->modely->UzivateleDb->updateId($this->uzivatel->uid,array('rezim_uprav'=>'0')); 
-			}
-		$returnUrl=strip_tags(trim(safeurlBase64Decode(getget('rurl'))));
-		$returnUrl=str_replace('isAjax=','a=',$returnUrl);
-		if($returnUrl==''){$returnUrl='/';}
-		_redirectBasic($returnUrl);	
-		}
 	public function aktivujRezimMHMInfo(){
 		if($this->uzivatel->uid>0){
 			if($this->uzivatel->data->infomode==1){

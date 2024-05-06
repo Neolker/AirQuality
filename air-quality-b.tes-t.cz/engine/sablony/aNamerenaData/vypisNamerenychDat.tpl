@@ -41,7 +41,7 @@
 					<tr>																
 						<td class="align-center" width="120"><?=strftime('%d.%m.%Y<br /><small>%H:%M:%S</small>',$d->unix_ts);?></td>		
 						<td><?=$d->uzivatel;?></td>
-						<td><?=$d->nazev_zarizeni;?><br /><small><?=$d->vyrobni_cislo;?></small></td>
+						<td><?=$d->nazev_zarizeni;?><?if(trim($d->lokalita)!=""){?> (<?=$d->lokalita;?>)<?}?><br /><small><?=$d->vyrobni_cislo;?></small></td>
 						<td class="align-right" width="80"><?=number_format($d->co2_prumer,2,',','&nbsp;');?></td>
 						<td class="align-center" width="50">
 							<?if($d->co2_trend==(-1)){?><em class="fa fa-arrow-trend-down"></em><?}?>

@@ -14,7 +14,7 @@ class aNamerenaData extends Modul{
 	private function vypisDat(){														
 		if(isset($_SESSION['namerena-data-vyhledavani'])&&trim($_SESSION['namerena-data-vyhledavani'])!=''){
       $fulltext=trim(prepareGetDataSafely($_SESSION['namerena-data-vyhledavani']));
-      $filtrQ.=' AND (z.nazev LIKE "%'.$fulltext.'%" OR u.nazev LIKE "%'.$fulltext.'%" OR z.vyrobni_cislo LIKE "%'.$fulltext.'%") ';
+      $filtrQ=' AND (z.nazev LIKE "%'.$fulltext.'%" OR u.nazev LIKE "%'.$fulltext.'%" OR z.vyrobni_cislo LIKE "%'.$fulltext.'%" OR z.lokalita LIKE "%'.$fulltext.'%") ';
     }else{
     	$fulltext='';
     	$filtrQ=' ';
@@ -23,7 +23,7 @@ class aNamerenaData extends Modul{
 		$citac=$this->nastaveni['administrace-pocet-strankovani'];		
 		if($citac<1){$citac=1;}
 		if($citac>100){$citac=100;}
-		$data=$this->modely->NamerenaDataDb->MqueryGetLines('SELECT nd.*, z.nazev as nazev_zarizeni, z.vyrobni_cislo, u.nazev as uzivatel FROM namerena_data as nd, zarizeni as z, uzivatele as u WHERE nd.id_zarizeni=z.zid AND nd.id_uzivatele=u.uid  '.$filtrQ.' ORDER BY unix_ts DESC LIMIT '.($stranka*$citac).', '.$citac);
+		$data=$this->modely->NamerenaDataDb->MqueryGetLines('SELECT nd.*, z.nazev as nazev_zarizeni, z.vyrobni_cislo, z.lokalita, u.nazev as uzivatel FROM namerena_data as nd, zarizeni as z, uzivatele as u WHERE nd.id_zarizeni=z.zid AND nd.id_uzivatele=u.uid  '.$filtrQ.' ORDER BY unix_ts DESC LIMIT '.($stranka*$citac).', '.$citac);
 		$pocet=$this->modely->NamerenaDataDb->MqueryGetOne('SELECT count(nd.ndid) FROM namerena_data as nd, zarizeni as z, uzivatele as u WHERE nd.id_zarizeni=z.zid AND nd.id_uzivatele=u.uid  '.$filtrQ.'');
 		$strankovac=$this->strankovac($stranka,$pocet,$citac);	
 		$tpl=new Sablona();		
