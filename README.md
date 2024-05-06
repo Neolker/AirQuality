@@ -1,5 +1,14 @@
 # AirQuality
 
+BACK-OFFICE projektu:
+
+URL:
+https://air-quality-b.tes-t.cz/administrace/
+
+Volání backendu z frontendu:
+
+TODO list of endpoints...
+
 Volání backendu pro aktualizaci dat:
 
 URL: 
