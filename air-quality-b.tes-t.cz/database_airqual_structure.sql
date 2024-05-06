@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: md406.wedos.net:3306
--- Generation Time: Apr 13, 2024 at 03:35 PM
+-- Generation Time: May 06, 2024 at 04:16 PM
 -- Server version: 10.4.31-MariaDB-log
 -- PHP Version: 5.4.23
 
@@ -39,8 +39,10 @@ CREATE TABLE IF NOT EXISTS `namerena_data` (
   `vlhkost_trend` smallint(6) DEFAULT 0,
   `baterie_hodnota` double DEFAULT 0,
   `pozice` smallint(6) DEFAULT 0 COMMENT '0 až 5 dle strany, na které se předmět nachází',
-  PRIMARY KEY (`ndid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`ndid`),
+  KEY `id_zarizeni` (`id_zarizeni`),
+  KEY `id_uzivatele` (`id_uzivatele`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=11 ;
 
 -- --------------------------------------------------------
 
@@ -59,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `nastaveni` (
   `zobrazovat` smallint(6) DEFAULT 1,
   PRIMARY KEY (`nid`),
   KEY `klic` (`klic`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=35 ;
 
 -- --------------------------------------------------------
 
@@ -90,13 +92,11 @@ CREATE TABLE IF NOT EXISTS `uzivatele` (
   `ajaxmode` smallint(6) DEFAULT 1,
   `infomode` smallint(6) DEFAULT 0,
   `varsmode` smallint(6) DEFAULT 0,
-  `rezim_uprav` smallint(6) DEFAULT 0,
   `aktivni_uzivatel` int(11) DEFAULT 1,
   `odstraneny_uzivatel` int(11) DEFAULT 0,
-  `id_jazyka_administrace` int(11) DEFAULT 0,
   PRIMARY KEY (`uid`),
   KEY `session` (`session`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=66 ;
 
 -- --------------------------------------------------------
 
@@ -109,11 +109,14 @@ CREATE TABLE IF NOT EXISTS `zarizeni` (
   `id_uzivatele` int(11) DEFAULT 0,
   `nazev` varchar(256) DEFAULT NULL,
   `vyrobni_cislo` varchar(256) DEFAULT NULL,
+  `lokalita` varchar(256) DEFAULT NULL,
   `nastaveni_co2_cervena` int(11) DEFAULT 1500,
   `nastaveni_co2_zluta` int(11) DEFAULT 1000,
   `nastaveni_co2_zelena` int(11) DEFAULT 0,
-  PRIMARY KEY (`zid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`zid`),
+  UNIQUE KEY `vyrobni_cislo` (`vyrobni_cislo`),
+  KEY `id_uzivatele` (`id_uzivatele`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=9 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
