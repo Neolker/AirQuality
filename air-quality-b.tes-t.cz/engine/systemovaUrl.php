@@ -6,6 +6,7 @@ $systemoveUrl["/?modul=aSmazaniUzivatele"]="administrace/uzivatele/smazani-uziva
 $systemoveUrl["/?modul=aNastaveni"]="administrace/nastaveni/";
 $systemoveUrl["/?modul=aPromenneNastaveni"]="administrace/nastaveni/promenne-nastaveni/";
 $systemoveUrl["/?modul=aNamerenaData"]="administrace/namerena-data/";
+$systemoveUrl["/?modul=aZarizeni"]="administrace/zarizeni/";
 $systemoveUrl["/?modul=Uvod"]="uvod/";
 $systemoveUrl["/?modul=Sitemapa"]="404/";
 $systemoveUrl["/?modul=Sitemapa&akce=robots"]="robots.txt";
