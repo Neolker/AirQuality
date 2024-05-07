@@ -6,8 +6,27 @@ URL:
 https://air-quality-b.tes-t.cz/administrace/
 
 Volání backendu z frontendu:
+## API endpoints
 
-TODO list of endpoints...
+- **POST** požadavky předávají parametry v JSON formátu v **Body**, většinou jde o data z formulářů
+- **GET** požadavky předávají parametry, které jsou součástí URL (route)
+
+| URI                               | METODA | VSTUP                                                               | VÝSTUP                                                                                                                                                                                                                                                                                                                                  |
+| --------------------------------- | ------ | ------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **USER**                          |
+| https://air-quality-b.tes-t.cz/api/user/login/           | POST   | {`login`,`password`}                                                                              | {`session_id`} - v cookies, {`status`,`error`,{userdata}}        |
+| https://air-quality-b.tes-t.cz/api/user/logout/          | GET    | null                                                                                              | {`success`}                                                      |
+| https://air-quality-b.tes-t.cz/api/user/update-settings/ | POST   | {`degree`,`name`,`surname`,`company`,`email`,`phone`}                                             | {`status`,`error`,{userdata}}                                    |
+| https://air-quality-b.tes-t.cz/api/user/update-password/ | POST   | {`new_password`,`new_password_again`}                                                             | {`status`,`error`}                                               |
+| https://air-quality-b.tes-t.cz/api/user/registrate/      | POST   | {`login`,`degree`,`name`,`surname`,`company`,`email`,`phone`,`new_password`,`new_password_again`} | {`session_id`} - v cookies, {`status`,`error`,{userdata}}        |
+| https://air-quality-b.tes-t.cz/api/user/forgot-password/ | POST   | {`login`,`email`}                                                                                 | {`status`,`error`}                                               |
+| **DEVICE**                        |
+| device/get                        | GET    | `session_id`, `user_id`, `device_id`                                | `device_id`, `name`, `location`, `status`                                                                                                                                                                                                                                                                                               |
+| device/update                     | POST   | `session_id`, `user_id`, `device_id`                                | `device_id`, `name`, `location`, `status`                                                                                                                                                                                                                                                                                               |
+| device/get-data                   | GET    | `session_id`, `user_id`, `device_id`, `date`                        | `data[] {` `device_id`, `date`, `AQI[] {timestamp, value}`, `CO2_data[] { timestamp, value }`, `VOC_data[] { timestamp, value }`, `NOX_data[] { timestamp, value }`, `temperature_data[] { timestamp, value }`,`humidity_data[] { timestamp, value }`,` battery_data[] { timestamp, value }`,`position_data[] { timestamp, value }` `}` |
+| device/add                        | POST   | `session_id`, `user_id`, `name`, `location`                         | `device_id`, `name`, `location`, `status`                                                                                                                                                                                                                                                                                               |
+| device/delete                     | POST   | `session_id`, `user_id`, `device_id`                                | `device_id`, `name`, `location`, `status`                                                                                                                                                                                                                                                                                               |
+
 
 Volání backendu pro aktualizaci dat:
 
