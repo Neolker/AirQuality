@@ -12,7 +12,7 @@ Volání backendu z frontendu:
 - **GET** požadavky předávají parametry, které jsou součástí URL (route)
 
 | URI                                                      | METODA | VSTUP                                                                                                     | VÝSTUP                                                          | POPIS |
-| -------------------------------------------------------- | ------ | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| -------------------------------------------------------- | ------ | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- | ----- |
 | **USER**                                                                                                                                                                                                                                        |
 | https://air-quality-b.tes-t.cz/api/user/login/           | POST   | {`login`, `password`}                                                                                     | {`session_id`} - v cookies, {`status`, `error`, {user_data} }   | Přihlášení uživatele |
 | https://air-quality-b.tes-t.cz/api/user/logout/          | GET    | null                                                                                                      | {`status`, `error`}                                             | Odhlášení uživatele |
