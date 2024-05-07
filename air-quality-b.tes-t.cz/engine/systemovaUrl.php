@@ -11,3 +11,4 @@ $systemoveUrl["/?modul=Uvod"]="uvod/";
 $systemoveUrl["/?modul=Sitemapa"]="404/";
 $systemoveUrl["/?modul=Sitemapa&akce=robots"]="robots.txt";
 $systemoveUrl["/?modul=DatovaAktualizace"]="data-update/";
+$systemoveUrl["/?modul=ApiUser"]="api/user/";

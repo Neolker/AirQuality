@@ -171,15 +171,14 @@ class Administrace extends Modul{
 		    $newpassHash=saltHashSha($newpass,$existuje_uzivatel->uid,$existuje_uzivatel->registrace_ts,'SaltOfMHMcubeEnterprise');
 		    $this->modely->UzivateleDb->updateId($existuje_uzivatel->uid,array('heslo_2'=>$newpassHash));
 		    $mailer=new MHMmailer(false);
-		    $mailer->phpMailer->Subject='Zapomenuté heslo - '.$_SERVER['SERVER_NAME'];              
+		    $mailer->phpMailer->Subject='Zapomenuté heslo - AirQuality';              
 		    $mailer->phpMailer->MsgHTML('<p><b>Vygenerovali jsme pro Vás nové přihlašovací heslo.</b></p>
 		    <p>
-		    	Nyní se můžete do Vašeho uživatelského účtu <b>'.$existuje_uzivatel->login.'</b> v systému 
-		    	<a href="'.'https://'.$_SERVER['SERVER_NAME'].'" target="_blank">'.$_SERVER['SERVER_NAME'].'</a>
+		    	Nyní se můžete do Vašeho uživatelského účtu <b>'.$existuje_uzivatel->login.'</b> v systému AirQuality
 		    	přihlásit se svým původním i s tímto novým heslem:</p>
 		    <p><b>'.$newpass.'</b></p>
 		    <p>Kvůli zabezpečení doporučujeme ihned po přihlášení Vaše heslo změnit a tento e-mail smazat.</p>
-		    <p>Váš systém MHMCube.</p>
+		    <p>Váš systém AirQuality.</p>
 		    ');
 		    $mailer->phpMailer->AddAddress($existuje_uzivatel->email);
 		    $mailer->phpMailer->Send();  				    
