@@ -1,0 +1,487 @@
+{
+	"info": {
+		"_postman_id": "af05eab3-8333-4021-a4ae-41a6271fe42a",
+		"name": "air-quality",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27665211"
+	},
+	"item": [
+		{
+			"name": "Data update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"serial\": \"364a-9569-d5b5-3ab3-044b\",\n    \"data\": [\n        {\n            \"unix-time\": 1712505476, //double int - unix time stamp\n            \"co2-avg\": 800.0, //float\n            \"co2-trend\": 1, //rise\n            \"co2-unit\": \"ppm\",\n            \"temp-avg\": 23.45, //float\n            \"temp-trend\": 0, //const\n            \"temp-unit\": \"°C\",\n            \"humi-avg\": 50.12, //float\n            \"humi-trend\": -1, //fall\n            \"humi-unit\": \"%RH\",\n            \"batt-avg\": 3.25, //float\n            \"batt-unit\": \"V\",\n            \"position\": 1 // 0=left, 1=right, 2=bottom, 3=top, 4=front, 5=back\n        },\n        {\n            \"unix-time\": 1712505478, //double int\n            \"co2-avg\": 800.0, //float\n            \"co2-trend\": 1, //rise\n            \"co2-unit\": \"ppm\",\n            \"temp-avg\": 23.45, //float\n            \"temp-trend\": 0, //const\n            \"temp-unit\": \"°C\",\n            \"humi-avg\": 50.12, //float\n            \"humi-trend\": -1, //fall\n            \"humi-unit\": \"%RH\",\n            \"batt-avg\": 3.25, //float\n            \"batt-unit\": \"V\",\n            \"position\": 3 // 0=left, 1=right, 2=bottom, 3=top, 4=front, 5=back\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://air-quality-b.tes-t.cz/data-update/",
+					"protocol": "https",
+					"host": [
+						"air-quality-b",
+						"tes-t",
+						"cz"
+					],
+					"path": [
+						"data-update",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"login\":\"test123\",\"password\":\"123456\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://air-quality-b.tes-t.cz/api/user/login/",
+					"protocol": "https",
+					"host": [
+						"air-quality-b",
+						"tes-t",
+						"cz"
+					],
+					"path": [
+						"api",
+						"user",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login user 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"login\":\"test12345\",\"password\":\"1234\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://air-quality-b.tes-t.cz/api/user/login/",
+					"protocol": "https",
+					"host": [
+						"air-quality-b",
+						"tes-t",
+						"cz"
+					],
+					"path": [
+						"api",
+						"user",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://air-quality-b.tes-t.cz/api/user/logout/",
+					"protocol": "https",
+					"host": [
+						"air-quality-b",
+						"tes-t",
+						"cz"
+					],
+					"path": [
+						"api",
+						"user",
+						"logout",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get logged user data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://air-quality-b.tes-t.cz/api/user/get-logged-user/",
+					"protocol": "https",
+					"host": [
+						"air-quality-b",
+						"tes-t",
+						"cz"
+					],
+					"path": [
+						"api",
+						"user",
+						"get-logged-user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change logged user userdata",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"degree\":\"pan\", \"name\":\"Test\", \"surname\":\"Testovič\", \"company\":\"Obchodní 123, a.s.\", \"email\":\"milos.hynek@email.cz\", \"phone\":\"+420 123 123 123\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://air-quality-b.tes-t.cz/api/user/update-settings/",
+					"protocol": "https",
+					"host": [
+						"air-quality-b",
+						"tes-t",
+						"cz"
+					],
+					"path": [
+						"api",
+						"user",
+						"update-settings",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"old_password\":\"bbbb\", \"new_password\":\"123456\", \"new_password_again\":\"123456\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://air-quality-b.tes-t.cz/api/user/update-password/",
+					"protocol": "https",
+					"host": [
+						"air-quality-b",
+						"tes-t",
+						"cz"
+					],
+					"path": [
+						"api",
+						"user",
+						"update-password",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User registration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"login\":\"test12345\", \"degree\":\"a\", \"name\":\"b\", \"surname\":\"c\", \"company\":\"d\", \"email\":\"milos.hynek@email.cz\", \"phone\":\"123456789\", \"password\":\"1234\", \"password_again\":\"1234\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://air-quality-b.tes-t.cz/api/user/registrate/",
+					"protocol": "https",
+					"host": [
+						"air-quality-b",
+						"tes-t",
+						"cz"
+					],
+					"path": [
+						"api",
+						"user",
+						"registrate",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "forgotten user password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"login\":\"test123\", \"email\":\"milos.hynek@email.cz\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://air-quality-b.tes-t.cz/api/user/forgot-password/",
+					"protocol": "https",
+					"host": [
+						"air-quality-b",
+						"tes-t",
+						"cz"
+					],
+					"path": [
+						"api",
+						"user",
+						"forgot-password",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get device",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://air-quality-b.tes-t.cz/api/device/get/?device_id=9",
+					"protocol": "https",
+					"host": [
+						"air-quality-b",
+						"tes-t",
+						"cz"
+					],
+					"path": [
+						"api",
+						"device",
+						"get",
+						""
+					],
+					"query": [
+						{
+							"key": "device_id",
+							"value": "9"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get list of devices",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Create device",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"serial_number\":\"test-test-test-2\", \"name\":\"test\", \"location\":\"\", \"co2_green\":400, \"co2_yellow\":1000, \"co2_red\":1500}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://air-quality-b.tes-t.cz/api/device/add/",
+					"protocol": "https",
+					"host": [
+						"air-quality-b",
+						"tes-t",
+						"cz"
+					],
+					"path": [
+						"api",
+						"device",
+						"add",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit device",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"device_id\":\"13\", \"name\":\"testík\", \"location\":\"Doma\", \"co2_green\":401, \"co2_yellow\":501, \"co2_red\":601}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://air-quality-b.tes-t.cz/api/device/update/",
+					"protocol": "https",
+					"host": [
+						"air-quality-b",
+						"tes-t",
+						"cz"
+					],
+					"path": [
+						"api",
+						"device",
+						"update",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete device",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://air-quality-b.tes-t.cz/api/device/delete/?device_id=0",
+					"protocol": "https",
+					"host": [
+						"air-quality-b",
+						"tes-t",
+						"cz"
+					],
+					"path": [
+						"api",
+						"device",
+						"delete",
+						""
+					],
+					"query": [
+						{
+							"key": "device_id",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://air-quality-b.tes-t.cz/api/data/get-data/?device_id=13&date=8.5.2024",
+					"protocol": "https",
+					"host": [
+						"air-quality-b",
+						"tes-t",
+						"cz"
+					],
+					"path": [
+						"api",
+						"data",
+						"get-data",
+						""
+					],
+					"query": [
+						{
+							"key": "device_id",
+							"value": "13"
+						},
+						{
+							"key": "date",
+							"value": "8.5.2024"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get state",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://air-quality-b.tes-t.cz/api/data/get-state/",
+					"protocol": "https",
+					"host": [
+						"air-quality-b",
+						"tes-t",
+						"cz"
+					],
+					"path": [
+						"api",
+						"data",
+						"get-state",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all states",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://air-quality-b.tes-t.cz/api/data/get-all-states/",
+					"protocol": "https",
+					"host": [
+						"air-quality-b",
+						"tes-t",
+						"cz"
+					],
+					"path": [
+						"api",
+						"data",
+						"get-all-states",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
