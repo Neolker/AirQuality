@@ -52,6 +52,7 @@ class Konfigurace{
     $this->konfigurace->moduly['DatovaAktualizace']=$this->vytvorModul('DatovaAktualizace','Datová aktualizace','ROOT','DatovaAktualizace','engine/moduly/datovaAktualizace.php',0,'<fa class="fa fa-cloud-arrow-up"></fa>',array(0,1,2,3),0,'index.tpl'); 		  
     $this->konfigurace->moduly['ApiUser']=$this->vytvorModul('ApiUser','API / USER','ROOT','ApiUser','engine/moduly/apiUser.php',0,'',array(0,1,2,3),0,'index.tpl');
     $this->konfigurace->moduly['ApiDevice']=$this->vytvorModul('ApiDevice','API / DEVICE','ROOT','ApiDevice','engine/moduly/apiDevice.php',0,'',array(0,1,2,3),0,'index.tpl');
+    $this->konfigurace->moduly['ApiData']=$this->vytvorModul('ApiData','API / DATA','ROOT','ApiData','engine/moduly/apiData.php',0,'',array(0,1,2,3),0,'index.tpl');
     $this->konfigurace->moduly['Administrace']=$this->vytvorModul('Administrace','Administrace','ROOT','Administrace','engine/moduly/administrace.php',1,'<fa class="fa-solid fa-cube"></fa>',array(0,1,2,3),0,'admin_index.tpl');    	    		
         $this->konfigurace->moduly['aNamerenaData']=$this->vytvorModul('aNamerenaData','Naměřená data','ROOT','aNamerenaData','engine/moduly/aNamerenaData.php',1,'<fa class="fa fa-wind"></fa>',array(2,3),1,'admin_index.tpl');	    
         $this->konfigurace->moduly['aZarizeni']=$this->vytvorModul('aZarizeni','Zařízení','ROOT','aZarizeni','engine/moduly/aZarizeni.php',1,'<fa class="fa fa-microchip"></fa>',array(2,3),1,'admin_index.tpl');	    	    	    	  
