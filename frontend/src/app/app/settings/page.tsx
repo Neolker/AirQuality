@@ -71,11 +71,11 @@ const Settings = () => {
                 console.log(values)
               )}
             >
-              <Checkbox
+              {/* <Checkbox
                 label="In-app notifications"
                 {...formNotification.getInputProps("appNotifications", { type: 'checkbox' })}
               />
-              <Space h="md" />
+              <Space h="md" /> */}
               <Checkbox
                 label="Email notifications"
                 {...formNotification.getInputProps("emailNotifications", { type: 'checkbox' })}
