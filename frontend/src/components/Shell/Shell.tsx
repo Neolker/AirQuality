@@ -11,6 +11,7 @@ import {
 import { useState } from "react";
 import classes from "./Shell.module.css";
 import { useRouter } from "next/navigation";
+import { useUser } from "../Contexts/UserContext";
 
 const data = [
   { link: "/app", label: "Dashboard", icon: IconDashboard },
@@ -28,7 +29,7 @@ export function Shell({
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
   const [active, setActive] = useState("Dashboard");
   const router = useRouter();
-
+  const { logout } = useUser();
 
   const links = data.map((item) => (
     <a
@@ -36,10 +37,16 @@ export function Shell({
       data-active={item.label === active || undefined}
       href={item.link}
       key={item.label}
-      onClick={(event) => {
+      onClick={async (event) => {
         event.preventDefault();
         setActive(item.label);
-        router.push(item.link);
+        if (item.label !== "Log out") {
+          router.push(item.link);
+        } else {
+          await logout();
+          // router.push(item.link);
+          window.location.href = "/" // TODO
+        }
       }}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
