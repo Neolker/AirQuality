@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
+import { parseCookies } from "nookies";
 import { Loader } from "@mantine/core";
 
 const AuthenticationWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -11,12 +11,12 @@ const AuthenticationWrapper = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const sessionToken = Cookies.get("session_id");
+      const cookies = parseCookies();
+      const session = cookies.user ? JSON.parse(cookies.user)?.session : null;
 
-      if (!sessionToken) {
+      if (!session) {
         // router.push("/");
-        window.location.href = "/" // TODO
-
+        window.location.href = "/"
       } else {
         setIsLoading(false); // Set loading to false if authenticated
       }

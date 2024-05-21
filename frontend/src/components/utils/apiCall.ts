@@ -24,15 +24,20 @@ export const apiCall = async ({
 
   try {
     const url = `${BASE_URL}${path}`;
+
     const config = {
       method,
       url,
       data,
       params,
-      withCredentials: true, // if cookies are used for session management
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
     };
 
     const response = await axios(config);
+
     return response.data;
   } catch (error: any) {
     console.error("API call failed:", error.response || error.message);

@@ -44,8 +44,8 @@ export function Shell({
           router.push(item.link);
         } else {
           await logout();
-          // router.push(item.link);
-          window.location.href = "/" // TODO
+          router.push(item.link);
+          // window.location.href = "/" // TODO
         }
       }}
     >

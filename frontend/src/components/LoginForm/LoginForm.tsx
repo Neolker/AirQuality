@@ -3,6 +3,7 @@ import { TextInput, Button, Paper, Container, Title, Box } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 import { useUser } from "../Contexts/UserContext";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -26,6 +27,11 @@ export default function LoginForm() {
       router.push("/app");
     }
   };
+
+  // Redirect to app if already logged in
+  if (Cookies.get("PHPSESSID")) {
+    router.push("/app");
+  }
 
   return (
     <Container size={420} my={40}>
