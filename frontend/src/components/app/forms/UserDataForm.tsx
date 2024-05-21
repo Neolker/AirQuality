@@ -9,8 +9,13 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
-const UserDataForm = ({ user, updateUserSettings }: { user: any; updateUserSettings: any }) => {
-    
+const UserDataForm = ({
+  user,
+  updateUserSettings,
+}: {
+  user: any;
+  updateUserSettings: any;
+}) => {
   const form = useForm({
     initialValues: {
       degree: user?.degree || "",
@@ -22,17 +27,11 @@ const UserDataForm = ({ user, updateUserSettings }: { user: any; updateUserSetti
     },
   });
 
-
-  const handleSubmit = (values: any) => {
-    console.log("User data values:", values);
-    updateUserSettings(values);
-  };
-
   return (
     <Card>
       <Title order={2}>User Data</Title>
       <Box miw={340} mx="auto">
-        <form onSubmit={form.onSubmit(handleSubmit)}>
+        <form onSubmit={form.onSubmit(updateUserSettings)}>
           <TextInput
             label="Degree"
             placeholder="Enter your degree"

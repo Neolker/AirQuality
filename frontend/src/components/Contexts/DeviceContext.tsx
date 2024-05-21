@@ -1,6 +1,13 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  use,
+  useEffect,
+} from "react";
 import { apiCall } from "../utils/apiCall";
 import { showNotification } from "@mantine/notifications";
 
@@ -29,6 +36,10 @@ const DeviceContext = createContext<DeviceContextType | undefined>(undefined);
 export const DeviceProvider = ({ children }: { children: ReactNode }) => {
   const [devices, setDevices] = useState<Device[]>([]);
 
+  useEffect(() => {
+    fetchDevices();
+  }, []);
+
   const fetchDevices = async () => {
     try {
       const data = await apiCall({
@@ -36,6 +47,7 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
         path: "/device/get-list/",
       });
       if (data.status === "OK") {
+        console.log(data);
         setDevices(data.device_datas);
         showNotification({
           title: "Devices Loaded",
