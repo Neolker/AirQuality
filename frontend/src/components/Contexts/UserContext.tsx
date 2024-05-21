@@ -1,7 +1,14 @@
 "use client";
 
 import { notifications } from "@mantine/notifications";
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import { destroyCookie, parseCookies, setCookie } from "nookies";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { apiCall } from "../utils/apiCall";
 
 interface User {
@@ -20,13 +27,38 @@ interface UserContextType {
   logout: () => Promise<void>;
   fetchUser: () => Promise<void>;
   updateUserSettings: (userData: Partial<User>) => Promise<void>;
-  updatePassword: (oldPassword: string, newPassword: string) => Promise<void>;
+  updatePassword: (
+    oldPassword: string,
+    newPassword: string,
+    newPasswordAgain: string
+  ) => Promise<void>;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  // Load user data from cookies when the provider initializes
+  useEffect(() => {
+    const cookies = parseCookies();
+    if (cookies.user) {
+      setUser(JSON.parse(cookies.user));
+    }
+  }, []);
+
+  // Save user data to cookies whenever it changes
+  useEffect(() => {
+    if (user) {
+      setCookie(null, "user", JSON.stringify(user), {
+        maxAge: 30 * 24 * 60 * 60, // 30 days
+        path: "/",
+        secure: process.env.NODE_ENV === "production", // Only set secure flag in production
+        sameSite: "lax",
+      });
+    } else {
+      destroyCookie(null, "user");
+    }
+  }, [user]);
 
   const login = async (login: string, password: string) => {
     try {
@@ -36,7 +68,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         data: { login, password },
       });
       if (data.status === "OK") {
-        setUser(data.user_data);
+        setUser(data.data);
         notifications.show({
           title: "Login Successful",
           message: "You have been successfully logged in.",
@@ -136,12 +168,20 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const updatePassword = async (oldPassword: string, newPassword: string) => {
+  const updatePassword = async (
+    oldPassword: string,
+    newPassword: string,
+    newPasswordAgain: string
+  ) => {
     try {
       const data = await apiCall({
         method: "POST",
         path: "/user/update-password/",
-        data: { old_password: oldPassword, new_password: newPassword },
+        data: {
+          old_password: oldPassword,
+          new_password: newPassword,
+          new_password_again: newPasswordAgain,
+        },
       });
       if (data.status === "OK") {
         notifications.show({

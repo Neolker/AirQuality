@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
-
 import { DeviceProvider } from "@/components/Contexts/DeviceContext";
 import { UserProvider } from "@/components/Contexts/UserContext";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
@@ -27,11 +26,11 @@ export default function RootLayout({
         <ColorSchemeScript defaultColorScheme="light" />
       </head>
       <body className={inter.className}>
-        <MantineProvider defaultColorScheme="light">
+        <MantineProvider defaultColorScheme="light" >
           <Notifications />
-            <UserProvider>
-              <DeviceProvider>{children}</DeviceProvider>
-            </UserProvider>
+          <UserProvider>
+            <DeviceProvider>{children}</DeviceProvider>
+          </UserProvider>
         </MantineProvider>
       </body>
     </html>
