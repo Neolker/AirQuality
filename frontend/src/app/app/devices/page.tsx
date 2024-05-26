@@ -1,10 +1,12 @@
 "use client";
 
-import { DeviceCard } from "@/components/app/DeviceCard";
-import { Badge, Button, Grid, Group, Space, Title, Text } from "@mantine/core";
 import { useDevices } from "@/components/Contexts/DeviceContext";
+import { DeviceCard } from "@/components/app/DeviceCard";
+import DeviceDataModalForm, { DeviceFormValues } from "@/components/app/forms/DeviceDataModalForm";
+import { Badge, Button, Grid, Group, Space, Text, Title } from "@mantine/core";
+import { useState } from "react";
 
-const devices = [
+const devices_mock = [
   {
     device_id: 1,
     serial_number: "SN-001",
@@ -58,8 +60,29 @@ const devices = [
 ];
 
 const Devices = () => {
-  // const { devices } = useDevices();
+  const { devices } = useDevices();
+  const [modalOpened, setModalOpened] = useState(false);
+  const [selectedDevice, setSelectedDevice] = useState<DeviceFormValues | null>(null);
   const onlineDevices = devices.filter((device) => device.status === "Online");
+
+  const handleAddDevice = () => {
+    setSelectedDevice(null);
+    setModalOpened(true);
+  };
+
+  const handleEditDevice = (device: DeviceFormValues) => {
+    setSelectedDevice(device);
+    setModalOpened(true);
+  };
+
+  const handleSubmitDevice = (device: DeviceFormValues) => {
+    if (selectedDevice) {
+
+    } else {
+      // Add new device
+    }
+    setModalOpened(false);
+  };
 
   return (
     <>
@@ -73,14 +96,14 @@ const Devices = () => {
             {devices.length - onlineDevices.length} offline
           </Badge>
         </Group>
-        <Button>Add device</Button>
+        <Button onClick={handleAddDevice} >Add device</Button>
       </Group>
       <Space h="lg" />
       <Grid gutter={{ base: 5, xs: "md", md: "xl", xl: "xl" }}>
-        {devices.map((device) => (
-          <Grid.Col span={{ base: 12, md: 6, lg: 4 }} key={device.id}>
+        {devices_mock.map((device) => (
+          <Grid.Col span={{ base: 12, md: 6, lg: 4 }} key={device.device_id}>
             <DeviceCard
-              id={device.id}
+              device_id={device.device_id}
               serial_number={device.serial_number}
               name={device.name}
               status={device.status}
@@ -88,6 +111,7 @@ const Devices = () => {
               co2_green={device.co2_green}
               co2_yellow={device.co2_yellow}
               co2_red={device.co2_red}
+              onEdit={() => handleEditDevice(device)}
             />
           </Grid.Col>
         ))}
@@ -97,6 +121,12 @@ const Devices = () => {
           </Grid.Col>
         )}
       </Grid>
+      <DeviceDataModalForm
+        opened={modalOpened}
+        onClose={() => setModalOpened(false)}
+        onSubmit={handleSubmitDevice}
+        initialValues={selectedDevice || undefined}
+      />
     </>
   );
 };

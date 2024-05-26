@@ -1,11 +1,11 @@
 import {
-  Card,
-  Text,
+  ActionIcon,
   Badge,
+  Card,
+  Divider,
   Group,
   Stack,
-  Divider,
-  ActionIcon,
+  Text,
   useMantineTheme,
 } from "@mantine/core";
 import {
@@ -19,7 +19,7 @@ import {
 import { useRouter } from "next/navigation";
 
 interface DeviceCardProps {
-  id: number;
+  device_id: number;
   serial_number: string;
   name: string;
   status: string;
@@ -27,10 +27,11 @@ interface DeviceCardProps {
   co2_green: number;
   co2_yellow: number;
   co2_red: number;
+  onEdit: ({ device }: any) => void;
 }
 
 export const DeviceCard = ({
-  id,
+  device_id,
   serial_number,
   name,
   status,
@@ -38,6 +39,7 @@ export const DeviceCard = ({
   co2_green,
   co2_yellow,
   co2_red,
+  onEdit,
 }: DeviceCardProps) => {
   const theme = useMantineTheme();
   const router = useRouter();
@@ -79,7 +81,7 @@ export const DeviceCard = ({
               variant="subtle"
               size="lg"
               onClick={() => {
-                router.push(`/app/devices/${id}`);
+                router.push(`/app/devices/${device_id}`);
               }}
             >
               <IconChartLine
@@ -88,7 +90,12 @@ export const DeviceCard = ({
                 stroke={1.5}
               />
             </ActionIcon>
-            <ActionIcon variant="subtle" color="gray" size="lg">
+            <ActionIcon
+              variant="subtle"
+              color="gray"
+              size="lg"
+              onClick={onEdit}
+            >
               <IconEdit
                 style={{ width: "70%", height: "70%" }}
                 color={theme.colors.blue[6]}
