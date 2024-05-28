@@ -1,5 +1,6 @@
 <?php
 session_start();  		
+setcookie("PHPSESSID",session_id(),['expires'=>(time()+86400)/*one day*/,'path'=>'/','domain'=>'','secure'=>isset($_SERVER['HTTPS']),'httponly'=>true,'samesite'=>'None']);
 //inicializace chyb:
 if(isset($_SESSION['mhm-error'])){
 	$mhmError=(int)$_SESSION['mhm-error'];
@@ -77,7 +78,7 @@ class Jadro{
     	die('KERNEL_ERROR_DB1: Unable to connect to DB!');
     	}      
     $this->uzivatel=new stdClass();   
-    $uzivatel=$this->databaze->MqueryGetLine('SELECT * FROM uzivatele WHERE session="'.session_id().'" AND session!="" limit 1');
+    $uzivatel=$this->databaze->MqueryGetLine('SELECT * FROM uzivatele WHERE session="'.session_id().'" AND session!="" limit 1');    
     if(isset($uzivatel->uid)&&$uzivatel->uid>0){
       $this->uzivatel->uid=$uzivatel->uid;
       unset($uzivatel->heslo);
@@ -85,8 +86,18 @@ class Jadro{
       $this->uzivatel->data=$uzivatel;
       $this->databaze->Mquery('UPDATE uzivatele SET posledni_aktivita_ts="'.time().'" WHERE uid="'.((int)$this->uzivatel->uid).'"');        
     }else{
-      $this->uzivatel->uid=0;
-      $this->uzivatel->data=array();         
+    	$sid=prepareGetDataSafely(getget('sid',''));
+    	$uzivatelB=$this->databaze->MqueryGetLine('SELECT * FROM uzivatele WHERE session="'.$sid.'" AND session!="" limit 1');    
+		  if($sid!=''&&isset($uzivatelB->uid)&&$uzivatelB->uid>0){
+		    $this->uzivatel->uid=$uzivatelB->uid;
+		    unset($uzivatelB->heslo);
+		    unset($uzivatelB->heslo_2);
+		    $this->uzivatel->data=$uzivatelB;
+		    $this->databaze->Mquery('UPDATE uzivatele SET posledni_aktivita_ts="'.time().'" WHERE uid="'.((int)$this->uzivatel->uid).'"');        
+		  }else{    
+		    $this->uzivatel->uid=0;
+		    $this->uzivatel->data=array();    
+      }     
     }
    	$this->modely=new stdClass();
     foreach($this->konfigurace->modely as $modelK=>$modelH){
