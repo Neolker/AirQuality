@@ -4,10 +4,15 @@ import AuthenticationWrapper from "@/components/AuthenticationWrapper";
 
 import { Shell } from "@/components/Shell/Shell";
 import "@mantine/charts/styles.css";
-import { ColorSchemeScript, MantineProvider } from "@mantine/core";
+import { ColorSchemeScript, createTheme, MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { Notifications } from "@mantine/notifications";
 import "@mantine/notifications/styles.css";
+
+const myTheme = createTheme({
+  primaryColor: 'blue',
+  defaultRadius: 0,
+});
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,10 +29,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <ColorSchemeScript defaultColorScheme="light" />
+        <ColorSchemeScript defaultColorScheme="dark" />
       </head>
       <body className={inter.className}>
-        <MantineProvider defaultColorScheme="light">
+        <MantineProvider defaultColorScheme="dark" theme={myTheme}>
           <Notifications />
           <AuthenticationWrapper>
             <Shell>{children}</Shell>
