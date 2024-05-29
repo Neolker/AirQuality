@@ -47,7 +47,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     if (cookies.user) {
       setUser(JSON.parse(cookies.user));
     }
-    setIsLoading(false);
+    setTimeout(() => {
+      // Simulate loading time
+      setIsLoading(false);
+    }, 1000);
   }, []);
 
   // Save user data to cookies whenever it changes
@@ -63,7 +66,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     } else {
       destroyCookie(null, "user");
     }
-    setIsLoading(false);
+    setTimeout(() => {
+      // Simulate loading time
+      setIsLoading(false);
+    }, 1000);
   }, [user]);
 
   const login = async (login: string, password: string) => {
@@ -91,6 +97,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         color: "red",
       });
     }
+
     return false;
   };
 
