@@ -10,6 +10,7 @@ import React, {
 } from "react";
 import { apiCall } from "../utils/apiCall";
 import { showNotification } from "@mantine/notifications";
+import { useUser } from "./UserContext";
 
 interface Device {
   status: string;
@@ -36,10 +37,13 @@ const DeviceContext = createContext<DeviceContextType | undefined>(undefined);
 
 export const DeviceProvider = ({ children }: { children: ReactNode }) => {
   const [devices, setDevices] = useState<Device[]>([]);
+  const { isLoading, user } = useUser();
 
   useEffect(() => {
-    fetchDevices();
-  }, []);
+    if (!isLoading && user) { // If user is loaded and not loading
+      fetchDevices();
+    }
+  }, [isLoading]);
 
   const fetchDevices = async () => {
     try {
@@ -48,15 +52,14 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
         path: "/device/get-list/",
       });
       if (data.status === "OK") {
-        console.log(data);
         setDevices(data.device_datas);
         showNotification({
           title: "Devices Loaded",
-          message: "All devices have been successfully retrieved.",
+          message: data.error,
           color: "green",
         });
       } else {
-        throw new Error("Failed to fetch devices");
+        throw new Error(data.error);
       }
     } catch (error: any) {
       showNotification({
@@ -78,7 +81,7 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
         setDevices((prev) => [...prev, data.device_data]);
         showNotification({
           title: "Device Added",
-          message: "The device has been successfully added.",
+          message: data.error,
           color: "green",
         });
       } else {
