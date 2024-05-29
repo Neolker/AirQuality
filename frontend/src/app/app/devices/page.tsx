@@ -111,7 +111,7 @@ const Devices = () => {
               co2_green={device.co2_green}
               co2_yellow={device.co2_yellow}
               co2_red={device.co2_red}
-              onEdit={() => handleEditDevice(device)}
+              onEdit={(device) => handleEditDevice(device)}
             />
           </Grid.Col>
         ))}

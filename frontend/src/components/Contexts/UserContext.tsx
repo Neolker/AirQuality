@@ -32,22 +32,27 @@ interface UserContextType {
     newPassword: string,
     newPasswordAgain: string
   ) => Promise<void>;
+  isLoading?: boolean;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   // Load user data from cookies when the provider initializes
   useEffect(() => {
+    setIsLoading(true);
     const cookies = parseCookies();
     if (cookies.user) {
       setUser(JSON.parse(cookies.user));
     }
+    setIsLoading(false);
   }, []);
 
   // Save user data to cookies whenever it changes
   useEffect(() => {
+    setIsLoading(true);
     if (user) {
       setCookie(null, "user", JSON.stringify(user), {
         maxAge: 30 * 24 * 60 * 60, // 30 days
@@ -58,6 +63,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     } else {
       destroyCookie(null, "user");
     }
+    setIsLoading(false);
   }, [user]);
 
   const login = async (login: string, password: string) => {
@@ -204,6 +210,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   return (
     <UserContext.Provider
       value={{
+        isLoading,
         user,
         setUser,
         login,
