@@ -12,6 +12,7 @@ import { useState } from "react";
 import classes from "./Shell.module.css";
 import { useRouter } from "next/navigation";
 import { useUser } from "../Contexts/UserContext";
+import Link from "next/link";
 
 const data = [
   { link: "/app", label: "Dashboard", icon: IconDashboard },
@@ -32,26 +33,24 @@ export function Shell({
   const { logout } = useUser();
 
   const links = data.map((item) => (
-    <a
+    <Link
       className={classes.link}
       data-active={item.label === active || undefined}
       href={item.link}
       key={item.label}
       onClick={async (event) => {
-        event.preventDefault();
         setActive(item.label);
-        if (item.label !== "Log out") {
-          router.push(item.link);
-        } else {
-          await logout();
-          router.push(item.link);
+        if (item.label === "Log out") {
+          // event.preventDefault();
+          // await logout();
+          // router.push(item.link);
           // window.location.href = "/" // TODO
         }
       }}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
       <span>{item.label}</span>
-    </a>
+    </Link>
   ));
 
   return (

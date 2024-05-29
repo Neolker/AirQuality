@@ -13,7 +13,6 @@ import {
 } from "@mantine/core";
 import { useUser } from "../Contexts/UserContext";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -37,8 +36,6 @@ export default function LoginForm() {
       router.push("/app");
     }
   };
-  console.log("isLoading", isLoading);
-  console.log("user", user);
 
   if (isLoading) {
     return (
