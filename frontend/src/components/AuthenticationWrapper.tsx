@@ -15,8 +15,8 @@ const AuthenticationWrapper = ({ children }: { children: React.ReactNode }) => {
       const session = cookies.user ? JSON.parse(cookies.user)?.session : null;
 
       if (!session) {
-        // router.push("/");
-        window.location.href = "/"
+        router.push("/");
+        // window.location.href = "/"
       } else {
         setIsLoading(false); // Set loading to false if authenticated
       }

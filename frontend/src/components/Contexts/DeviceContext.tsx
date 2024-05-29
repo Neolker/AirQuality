@@ -12,6 +12,7 @@ import { apiCall } from "../utils/apiCall";
 import { showNotification } from "@mantine/notifications";
 
 interface Device {
+  status: string;
   device_id: string;
   name: string;
   location: string;

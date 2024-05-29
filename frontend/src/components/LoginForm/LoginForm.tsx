@@ -1,13 +1,23 @@
 import { useForm } from "@mantine/form";
-import { TextInput, Button, Paper, Container, Title, Box } from "@mantine/core";
-import { showNotification } from "@mantine/notifications";
+import {
+  TextInput,
+  Button,
+  Paper,
+  Container,
+  Title,
+  Box,
+  Text,
+  Loader,
+  Skeleton,
+  Center,
+} from "@mantine/core";
 import { useUser } from "../Contexts/UserContext";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
+import { useEffect } from "react";
 
 export default function LoginForm() {
   const router = useRouter();
-  const { login, user } = useUser();
+  const { isLoading, login, user } = useUser();
   const form = useForm({
     initialValues: {
       login: "",
@@ -27,10 +37,34 @@ export default function LoginForm() {
       router.push("/app");
     }
   };
+  console.log("isLoading", isLoading);
+  console.log("user", user);
 
-  // Redirect to app if already logged in
-  if (Cookies.get("PHPSESSID")) {
-    router.push("/app");
+  if (isLoading) {
+    return (
+      <Container size={420} my={40}>
+        <Skeleton height={45} radius="md" />
+        <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
+          <Center>
+            <Loader color="blue" type="dots" />
+          </Center>
+        </Paper>
+      </Container>
+    );
+  }
+
+  if (user) {
+    return (
+      <Container size={420} my={40}>
+        <Title mb="xl">Already logged in</Title>
+        <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
+          <Text>You are already logged in.</Text>
+          <Button fullWidth mt="xl" onClick={() => router.push("/app")}>
+            Go to App
+          </Button>
+        </Paper>
+      </Container>
+    );
   }
 
   return (
