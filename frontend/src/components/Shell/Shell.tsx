@@ -29,7 +29,6 @@ export function Shell({
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
   const [active, setActive] = useState("Dashboard");
-  const router = useRouter();
   const { logout } = useUser();
 
   const links = data.map((item) => (
@@ -41,10 +40,8 @@ export function Shell({
       onClick={async (event) => {
         setActive(item.label);
         if (item.label === "Log out") {
-          // event.preventDefault();
-          // await logout();
-          // router.push(item.link);
-          // window.location.href = "/" // TODO
+          event.preventDefault();
+          await logout();
         }
       }}
     >
