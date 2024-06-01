@@ -45,9 +45,9 @@ class ApiDevice extends Modul{
 						'serial_number'=>$z->vyrobni_cislo,
 						'name'=>$z->nazev,
 						'location'=>$z->lokalita,
-						'co2_green'=>$z->nastaveni_co2_cervena,
+						'co2_green'=>$z->nastaveni_co2_zelena,
 						'co2_yellow'=>$z->nastaveni_co2_zluta,
-						'co2_red'=>$z->nastaveni_co2_zelena			
+						'co2_red'=>$z->nastaveni_co2_cervena
 						);					
 					}
 				}			
