@@ -57,8 +57,6 @@ export function Shell({
     }
   }, []);
 
-  console.log("active", active);
-
   return (
     <AppShell
       header={{ height: 60 }}
