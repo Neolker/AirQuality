@@ -33,7 +33,6 @@ const PasswordResetForm = ({ updatePassword }: { updatePassword: any }) => {
   });
 
   const handleSubmit = (values: any) => {
-    console.log("Password reset values:", values);
     updatePassword(values.oldPassword,values.newPassword,values.newPasswordAgain);
   };
 

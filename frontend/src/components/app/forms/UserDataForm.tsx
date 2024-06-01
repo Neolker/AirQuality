@@ -8,6 +8,7 @@ import {
   Tooltip,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { useEffect } from "react";
 
 const UserDataForm = ({
   user,
@@ -18,14 +19,25 @@ const UserDataForm = ({
 }) => {
   const form = useForm({
     initialValues: {
+      degree: "",
+      name: "",
+      surname: "",
+      company: "",
+      email: "",
+      phone: "",
+    },
+  });
+
+  useEffect(() => {
+    form.setValues({
       degree: user?.degree || "",
       name: user?.name || "",
       surname: user?.surname || "",
       company: user?.company || "",
       email: user?.email || "",
       phone: user?.phone || "",
-    },
-  });
+    });
+  }, [user]);
 
   return (
     <Card>
