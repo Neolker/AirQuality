@@ -6,6 +6,7 @@ import { DeviceProvider } from "@/components/Contexts/DeviceContext";
 import { UserProvider } from "@/components/Contexts/UserContext";
 import { Shell } from "@/components/Shell/Shell";
 import "@mantine/charts/styles.css";
+import '@mantine/dates/styles.css';
 import { ColorSchemeScript, createTheme, MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { ModalsProvider } from "@mantine/modals";

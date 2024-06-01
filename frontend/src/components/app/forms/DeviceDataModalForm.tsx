@@ -54,13 +54,13 @@ const DeviceDataModalForm = ({
 }: DeviceModalFormProps) => {
   const form = useForm<DeviceFormValues>({
     initialValues: {
-      device_id: initialValues?.device_id || "",
-      serial_number: initialValues?.serial_number || "",
-      name: initialValues?.name || "",
-      location: initialValues?.location || "",
-      co2_green: initialValues?.co2_green || 1000,
-      co2_yellow: initialValues?.co2_yellow || 2000,
-      co2_red: initialValues?.co2_red || 2500,
+      device_id: "",
+      serial_number: "",
+      name: "",
+      location: "",
+      co2_green: 500,
+      co2_yellow: 1000,
+      co2_red: 1500,
     },
     validate: validateCO2Levels,
   });
@@ -71,9 +71,9 @@ const DeviceDataModalForm = ({
       serial_number: initialValues?.serial_number || "",
       name: initialValues?.name || "",
       location: initialValues?.location || "",
-      co2_green: initialValues?.co2_green || 1000,
-      co2_yellow: initialValues?.co2_yellow || 2000,
-      co2_red: initialValues?.co2_red || 2500,
+      co2_green: initialValues?.co2_green || 500,
+      co2_yellow: initialValues?.co2_yellow || 1000,
+      co2_red: initialValues?.co2_red || 1500,
     });
     form.resetDirty();
   }, [initialValues]);

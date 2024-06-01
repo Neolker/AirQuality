@@ -3,7 +3,7 @@
 import { Badge, Button, Grid, Group, Space, Text, Title, Container, SimpleGrid, Skeleton, rem } from "@mantine/core";
 
 import { useDevices } from "@/components/Contexts/DeviceContext";
-import MapChart from "../../../components/app/MapChart";
+import MapChart from "@/components/app/MapChart";
 import { DeviceTable } from "@/components/app/tables/DeviceTable";
 import { ProgressCard } from "@/components/app/ProgressCard";
 import { useState } from "react";

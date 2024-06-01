@@ -23,11 +23,18 @@ interface Device {
 }
 
 interface SensorData {
+  co2: any;
+  voc: any;
+  nox: any;
+  temperature: any;
+  humidity: any;
+  date: string | number | Date;
   // Define the structure of sensor data as per your API response
 }
 
 interface DeviceContextType {
   isLoadingDevices: boolean;
+  remainingTimeToRefresh: number;
   devices: Device[];
   setDevices: React.Dispatch<React.SetStateAction<Device[]>>;
   fetchDevices: () => Promise<void>;
@@ -44,9 +51,12 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
   const [devices, setDevices] = useState<Device[]>([]);
   const { isLoading, user } = useUser();
   const [isLoadingDevices, setIsLoadingDevices] = useState(true);
+  const [remainingTimeToRefresh, setRemainingTimeToRefresh] = useState(300); // 5 minutes in seconds
   const apiCallDelay =
     parseInt(process.env.NEXT_PUBLIC_API_CALL_DELAY ?? "") || 1000;
-  const refreshSensorDataInterval = parseInt(process.env.NEXT_PUBLIC_REFRESH_SENSOR_DATA_INTERVAL ?? "") || 300005;;
+  const refreshSensorDataInterval =
+    parseInt(process.env.NEXT_PUBLIC_REFRESH_SENSOR_DATA_INTERVAL ?? "") ||
+    300005;
 
   useEffect(() => {
     const fetchDevicesData = async () => {
@@ -58,9 +68,15 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
       // If user is loaded and not loading
       fetchDevicesData();
       // Set interval to fetch device states every 5 minutes
-      const interval = setInterval(() => {
+      const fetchInterval = setInterval(() => {
         updateAllDeviceStates();
-      }, refreshSensorDataInterval);
+        setRemainingTimeToRefresh(300); // Reset remaining time after each fetch
+      }, 5 * 60 * 1000); // 5 minutes in milliseconds
+
+      // Set interval to update remaining time every second
+      const timerInterval = setInterval(() => {
+        setRemainingTimeToRefresh((prev) => (prev > 0 ? prev - 1 : 300));
+      }, 1000);
 
       // Cleanup interval on component unmount
       return () => clearInterval(interval);
@@ -124,6 +140,7 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
         color: "red",
       });
     }
+    updateAllDeviceStates();
     setTimeout(() => {
       // Simulate loading time
       setIsLoadingDevices(false);
@@ -208,7 +225,7 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
       });
 
       if (data.status === "OK") {
-        return data.sensors_datas;
+        return data.data;
       } else {
         throw new Error(data.error);
       }
@@ -233,7 +250,7 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
       });
 
       if (data.status === "OK") {
-        return data.is_online;
+        return data;
       } else {
         throw new Error(data.error);
       }
@@ -295,6 +312,7 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
     <DeviceContext.Provider
       value={{
         isLoadingDevices,
+        remainingTimeToRefresh,
         devices,
         setDevices,
         fetchDevices,
