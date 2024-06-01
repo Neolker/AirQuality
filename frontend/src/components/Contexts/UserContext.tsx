@@ -137,7 +137,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         path: "/user/get-logged-user/",
       });
       if (data.status === "OK") {
-        setUser(data.user_data);
+        setUser(data.data);
         notifications.show({
           title: "User Data Fetched",
           message: "User data has been successfully retrieved.",
@@ -163,7 +163,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         data: userData,
       });
       if (data.status === "OK") {
-        setUser(data.user_data);
+        setUser(data.data);
         notifications.show({
           title: "User Settings Updated",
           message: "Your settings have been successfully updated.",

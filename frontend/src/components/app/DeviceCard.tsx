@@ -21,7 +21,7 @@ import {
 import { useRouter } from "next/navigation";
 
 interface DeviceCardProps {
-  device_id: number;
+  device_id: string;
   serial_number: string;
   name: string;
   status: string;
