@@ -5,7 +5,6 @@ import React, {
   useContext,
   useState,
   ReactNode,
-  use,
   useEffect,
 } from "react";
 import { apiCall } from "../utils/apiCall";
@@ -13,12 +12,17 @@ import { showNotification } from "@mantine/notifications";
 import { useUser } from "./UserContext";
 
 interface Device {
+  serial_number: string;
   device_id: string;
   name: string;
   location: string;
   co2_green: number;
   co2_yellow: number;
   co2_red: number;
+}
+
+interface SensorData {
+  // Define the structure of sensor data as per your API response
 }
 
 interface DeviceContextType {
@@ -29,6 +33,9 @@ interface DeviceContextType {
   addDevice: (deviceData: Device) => Promise<void>;
   updateDevice: (deviceData: Device) => Promise<void>;
   deleteDevice: (deviceId: string) => Promise<void>;
+  getSensorData: (deviceId: string, date: string) => Promise<SensorData[]>;
+  getDeviceState: (deviceId: string) => Promise<boolean>;
+  getAllDeviceStates: () => Promise<{ device_id: string, is_online: boolean }[]>;
 }
 
 const DeviceContext = createContext<DeviceContextType | undefined>(undefined);
@@ -51,18 +58,14 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
       const data = await apiCall({
         method: "GET",
         path: "/device/get-list/",
-      });
+      })
+
       if (data.status === "OK") {
         let devices = [];
         for (var key in data.data) {
           devices.push(data.data[key]);
         }
         setDevices(devices);
-        // showNotification({
-        //   title: "Devices Loaded",
-        //   message: data.error,
-        //   color: "green",
-        // });
       } else {
         throw new Error(data.error);
       }
@@ -88,6 +91,7 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
         path: "/device/add/",
         data: deviceData,
       });
+
       if (data.status === "OK") {
         setDevices((prev) => [...prev, data.data]);
         showNotification({
@@ -119,7 +123,8 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
         method: "POST",
         path: "/device/update/",
         data: deviceData,
-      });
+      }); // 5-second timeout
+
       if (data.status === "OK") {
         setDevices((prev) =>
           prev.map((d) =>
@@ -154,7 +159,8 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
       const data = await apiCall({
         method: "GET",
         path: `/device/delete/?device_id=${deviceId}`,
-      });
+      }); // 5-second timeout
+
       if (data.status === "OK") {
         setDevices((prev) => prev.filter((d) => d.device_id !== deviceId));
         showNotification({
@@ -178,6 +184,81 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
     }, 1000);
   };
 
+  const getSensorData = async (deviceId: string, date: string) => {
+    setIsLoadingDevices(true);
+    try {
+      const data = await apiCall({
+        method: "GET",
+        path: `/data/get-data/?device_id=${deviceId}&date=${date}`,
+      }); // 5-second timeout
+
+      if (data.status === "OK") {
+        return data.sensors_datas;
+      } else {
+        throw new Error(data.error);
+      }
+    } catch (error: any) {
+      showNotification({
+        title: "Get Sensor Data Failed",
+        message: error.message,
+        color: "red",
+      });
+      return [];
+    } finally {
+      setIsLoadingDevices(false);
+    }
+  };
+
+  const getDeviceState = async (deviceId: string) => {
+    setIsLoadingDevices(true);
+    try {
+      const data = await apiCall({
+        method: "GET",
+        path: `/data/get-state/?device_id=${deviceId}`,
+      }); // 5-second timeout
+
+      if (data.status === "OK") {
+        return data.is_online;
+      } else {
+        throw new Error(data.error);
+      }
+    } catch (error: any) {
+      showNotification({
+        title: "Get Device State Failed",
+        message: error.message,
+        color: "red",
+      });
+      return false;
+    } finally {
+      setIsLoadingDevices(false);
+    }
+  };
+
+  const getAllDeviceStates = async () => {
+    setIsLoadingDevices(true);
+    try {
+      const data = await apiCall({
+        method: "GET",
+        path: `/data/get-all-states/`,
+      }); // 5-second timeout
+
+      if (data.status === "OK") {
+        return data.states;
+      } else {
+        throw new Error(data.error);
+      }
+    } catch (error: any) {
+      showNotification({
+        title: "Get All Device States Failed",
+        message: error.message,
+        color: "red",
+      });
+      return [];
+    } finally {
+      setIsLoadingDevices(false);
+    }
+  };
+
   return (
     <DeviceContext.Provider
       value={{
@@ -188,6 +269,9 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
         addDevice,
         updateDevice,
         deleteDevice,
+        getSensorData,
+        getDeviceState,
+        getAllDeviceStates,
       }}
     >
       {children}
