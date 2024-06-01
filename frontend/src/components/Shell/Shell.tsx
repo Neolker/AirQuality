@@ -8,11 +8,11 @@ import {
   IconLogout,
   IconSettings,
 } from "@tabler/icons-react";
-import { useState } from "react";
+import { act, useEffect, useState } from "react";
 import classes from "./Shell.module.css";
-import { useRouter } from "next/navigation";
 import { useUser } from "../Contexts/UserContext";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const data = [
   { link: "/app", label: "Dashboard", icon: IconDashboard },
@@ -28,18 +28,19 @@ export function Shell({
 }>) {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
-  const [active, setActive] = useState("Dashboard");
+  const [active, setActive] = useState("/app");
+
   const { logout } = useUser();
 
   const links = data.map((item) => (
     <Link
       className={classes.link}
-      data-active={item.label === active || undefined}
+      data-active={item.link === active || undefined}
       href={item.link}
       key={item.label}
       onClick={async (event) => {
-        setActive(item.label);
-        if (item.label === "Log out") {
+        setActive(item.link);
+        if (item.label === "Log out ") {
           event.preventDefault();
           await logout();
         }
@@ -49,6 +50,14 @@ export function Shell({
       <span>{item.label}</span>
     </Link>
   ));
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setActive(window.location.pathname);
+    }
+  }, []);
+
+  console.log("active", active);
 
   return (
     <AppShell
