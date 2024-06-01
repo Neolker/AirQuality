@@ -58,7 +58,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(true);
     if (user) {
       setCookie(null, "user", JSON.stringify(user), {
-        maxAge: 30 * 24 * 60 * 60, // 30 days
+        maxAge: 3600, // 1 hour
         path: "/",
         secure: process.env.NODE_ENV === "production", // Only set secure flag in production
         sameSite: "lax",
