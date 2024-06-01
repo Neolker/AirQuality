@@ -1,0 +1,642 @@
+[
+    {
+        "id": "2c41a2bd.aa36ae",
+        "type": "tab",
+        "label": "Flow 1"
+    },
+    {
+        "id": "6775101731c5bd80",
+        "type": "group",
+        "z": "2c41a2bd.aa36ae",
+        "name": "Dashboard",
+        "style": {
+            "stroke": "#0070c0",
+            "fill": "#bfdbef",
+            "fill-opacity": "0.6",
+            "label": true,
+            "color": "#000000"
+        },
+        "nodes": [
+            "ead6ab588ac012a1",
+            "3fa03634d1f7ddbc",
+            "1be6d9d5b1b90247"
+        ],
+        "x": 374,
+        "y": 19,
+        "w": 212,
+        "h": 162
+    },
+    {
+        "id": "e12e191d879e2850",
+        "type": "group",
+        "z": "2c41a2bd.aa36ae",
+        "name": "MQTT Inputs",
+        "style": {
+            "stroke": "#6f2fa0",
+            "fill": "#dbcbe7",
+            "fill-opacity": "0.5",
+            "label": true,
+            "color": "#000000"
+        },
+        "nodes": [
+            "cb57c0e6bf95f05e",
+            "89d1850ab8de6df8",
+            "874b88a04f80ba22"
+        ],
+        "x": 14,
+        "y": 19,
+        "w": 212,
+        "h": 202
+    },
+    {
+        "id": "fe317d2a84d43cfa",
+        "type": "group",
+        "z": "2c41a2bd.aa36ae",
+        "name": "Data retention in Buffer DB",
+        "style": {
+            "stroke": "#ffC000",
+            "fill": "#ffefbf",
+            "fill-opacity": "0.5",
+            "label": true,
+            "color": "#000000"
+        },
+        "nodes": [
+            "cbf82508.506aa8",
+            "4d7282eb.906e7c",
+            "cf880a4bd7c17c1f",
+            "2ac12283fedaf804",
+            "4c1e4d25361f416c",
+            "60180a63a1bf7c34"
+        ],
+        "x": 374,
+        "y": 219,
+        "w": 852,
+        "h": 162
+    },
+    {
+        "id": "29fba84a.b2af58",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "127.0.0.1",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "bf6a3c96.35048",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "11207769.c31889",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard"
+    },
+    {
+        "id": "57ff470b.93fdf8",
+        "type": "ui_group",
+        "name": "AirQuality",
+        "tab": "11207769.c31889",
+        "order": 1,
+        "disp": true,
+        "width": "10",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "aaf3d3de7c4e5dd8",
+        "type": "MySQLdatabase",
+        "name": "AirQualityHubDB",
+        "host": "localhost",
+        "port": "3306",
+        "db": "air_quiality_hub",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "6cf82e37.9a1db",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "sys",
+        "tz": "",
+        "charset": ""
+    },
+    {
+        "id": "ef3d1f53.8d09a",
+        "type": "mqtt-broker",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "NodeRedUI",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "15",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "7b11ed0f.750644",
+        "type": "ui_group",
+        "name": "MQTT",
+        "tab": "670bfbe.e66d904",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "ad2ac2df.6f4bf",
+        "type": "ui_group",
+        "name": "Context",
+        "tab": "670bfbe.e66d904",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "670bfbe.e66d904",
+        "type": "ui_tab",
+        "name": "Demo",
+        "icon": "dashboard"
+    },
+    {
+        "id": "cbf82508.506aa8",
+        "type": "debug",
+        "z": "2c41a2bd.aa36ae",
+        "g": "fe317d2a84d43cfa",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1110,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "4d7282eb.906e7c",
+        "type": "mysql",
+        "z": "2c41a2bd.aa36ae",
+        "g": "fe317d2a84d43cfa",
+        "mydb": "aaf3d3de7c4e5dd8",
+        "name": "",
+        "x": 930,
+        "y": 300,
+        "wires": [
+            [
+                "cbf82508.506aa8"
+            ]
+        ]
+    },
+    {
+        "id": "cb57c0e6bf95f05e",
+        "type": "mqtt in",
+        "z": "2c41a2bd.aa36ae",
+        "g": "e12e191d879e2850",
+        "name": "CO2",
+        "topic": "node/generic-node:0/co2-meter/-/concentration",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "29fba84a.b2af58",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 180,
+        "wires": [
+            [
+                "ead6ab588ac012a1",
+                "2ac12283fedaf804"
+            ]
+        ]
+    },
+    {
+        "id": "89d1850ab8de6df8",
+        "type": "mqtt in",
+        "z": "2c41a2bd.aa36ae",
+        "g": "e12e191d879e2850",
+        "name": "BatteryVoltage",
+        "topic": "node/generic-node:0/battery/-/voltage",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "29fba84a.b2af58",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 120,
+        "wires": [
+            [
+                "1be6d9d5b1b90247",
+                "60180a63a1bf7c34"
+            ]
+        ]
+    },
+    {
+        "id": "874b88a04f80ba22",
+        "type": "mqtt in",
+        "z": "2c41a2bd.aa36ae",
+        "g": "e12e191d879e2850",
+        "name": "SerialNumber",
+        "topic": "node/generic-node:0/serial",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "29fba84a.b2af58",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "3fa03634d1f7ddbc",
+                "4c1e4d25361f416c"
+            ]
+        ]
+    },
+    {
+        "id": "ead6ab588ac012a1",
+        "type": "ui_gauge",
+        "z": "2c41a2bd.aa36ae",
+        "g": "6775101731c5bd80",
+        "name": "CO2",
+        "group": "57ff470b.93fdf8",
+        "order": 0,
+        "width": "0",
+        "height": "0",
+        "gtype": "gage",
+        "title": "CO2",
+        "label": "ppm",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "3000",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "500",
+        "seg2": "1000",
+        "diff": false,
+        "className": "",
+        "x": 450,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "3fa03634d1f7ddbc",
+        "type": "ui_text",
+        "z": "2c41a2bd.aa36ae",
+        "g": "6775101731c5bd80",
+        "group": "57ff470b.93fdf8",
+        "order": 1,
+        "width": "0",
+        "height": "0",
+        "name": "Serial Number",
+        "label": "Serial Number",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 480,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "1be6d9d5b1b90247",
+        "type": "ui_text",
+        "z": "2c41a2bd.aa36ae",
+        "g": "6775101731c5bd80",
+        "group": "57ff470b.93fdf8",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Battery Voltage",
+        "label": "Battery Voltage",
+        "format": "{{msg.payload}} V",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 480,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "cf880a4bd7c17c1f",
+        "type": "function",
+        "z": "2c41a2bd.aa36ae",
+        "g": "fe317d2a84d43cfa",
+        "name": "Create new line into buffer",
+        "func": "let bat=global.get(\"battery\");\nlet co2 = global.get(\"co2\");\nlet serial = \"undefined\";\nlet serialGlobal = global.get(\"serial\");\nif (serialGlobal.length>5){\n    serial = serialGlobal;\n    }\nmsg.topic = \"INSERT INTO buffer (ts,serial_number,co2,temperature,humidity,battery,position) VALUES (?,?,?,?,?,?,?)\";\nmsg.payload=[Math.floor(Date.now() / 1000),serial,co2,0,0,bat,0];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 300,
+        "wires": [
+            [
+                "4d7282eb.906e7c"
+            ]
+        ]
+    },
+    {
+        "id": "2ac12283fedaf804",
+        "type": "function",
+        "z": "2c41a2bd.aa36ae",
+        "g": "fe317d2a84d43cfa",
+        "name": "Global co2 set",
+        "func": "global.set(\"co2\",  parseFloat(msg.payload));\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4c1e4d25361f416c",
+        "type": "function",
+        "z": "2c41a2bd.aa36ae",
+        "g": "fe317d2a84d43cfa",
+        "name": "Global serial set",
+        "func": "global.set(\"serial\",  msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a104cb68d61cceeb",
+        "type": "debug",
+        "z": "2c41a2bd.aa36ae",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "b85777d87f329a77",
+        "type": "function",
+        "z": "2c41a2bd.aa36ae",
+        "name": "SELECT buffer",
+        "func": "msg.topic = \"SELECT * FROM buffer ORDER BY ts ASC\";\nmsg.payload=[];\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 560,
+        "wires": [
+            [
+                "c5ec9714874e40f6"
+            ]
+        ]
+    },
+    {
+        "id": "dfb8b306b972216e",
+        "type": "inject",
+        "z": "2c41a2bd.aa36ae",
+        "name": "Timer 30 sec.",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "30",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 140,
+        "y": 560,
+        "wires": [
+            [
+                "b85777d87f329a77"
+            ]
+        ]
+    },
+    {
+        "id": "60180a63a1bf7c34",
+        "type": "function",
+        "z": "2c41a2bd.aa36ae",
+        "g": "fe317d2a84d43cfa",
+        "name": "Global battery set",
+        "func": "global.set(\"battery\",  parseFloat(msg.payload));\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 300,
+        "wires": [
+            [
+                "cf880a4bd7c17c1f"
+            ]
+        ]
+    },
+    {
+        "id": "c5ec9714874e40f6",
+        "type": "mysql",
+        "z": "2c41a2bd.aa36ae",
+        "mydb": "aaf3d3de7c4e5dd8",
+        "name": "",
+        "x": 590,
+        "y": 560,
+        "wires": [
+            [
+                "475cf5302ea30f27"
+            ]
+        ]
+    },
+    {
+        "id": "475cf5302ea30f27",
+        "type": "function",
+        "z": "2c41a2bd.aa36ae",
+        "name": "function 3",
+        "func": "let battery=0;\nlet trend_co2=0;\nlet last_co2=0;\nlet sum_co2=0;\nlet count_co2=0;\nlet avg_co2=0;\nlet serial=\"xxx\";\nif(msg.payload.length > 0){\n    msg.payload.forEach((element) => {     \n        battery=element.battery;\n        if(last_co2<element.co2){trend_co2=1;}\n        else if(last_co2>element.co2){trend_co2=(-1);}   \n        else{trend_co2=0;}\n        last_co2=element.co2;\n        sum_co2+=element.co2;         \n        count_co2++;   \n        serial=element.serial_number;                 \n        });\n    if(count_co2>0){\n        avg_co2=(sum_co2/count_co2);\n        }\n    }\nmsg.topic = \"INSERT INTO main_data (unix_ts,serial_number,co2_avg,co2_trend,battery) VALUES (?,?,?,?,?)\";\nmsg.payload=[Math.floor(Date.now() / 1000),serial,avg_co2,trend_co2,battery];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 560,
+        "wires": [
+            [
+                "156cefd656a81fcb"
+            ]
+        ]
+    },
+    {
+        "id": "156cefd656a81fcb",
+        "type": "mysql",
+        "z": "2c41a2bd.aa36ae",
+        "mydb": "aaf3d3de7c4e5dd8",
+        "name": "",
+        "x": 1030,
+        "y": 560,
+        "wires": [
+            [
+                "a104cb68d61cceeb"
+            ]
+        ]
+    }
+]
