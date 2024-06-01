@@ -13,18 +13,16 @@ import { showNotification } from "@mantine/notifications";
 import { useUser } from "./UserContext";
 
 interface Device {
-  status: string;
   device_id: string;
   name: string;
   location: string;
-  co2_levels: {
-    green: number;
-    yellow: number;
-    red: number;
-  };
+  co2_green: number;
+  co2_yellow: number;
+  co2_red: number;
 }
 
 interface DeviceContextType {
+  isLoadingDevices: boolean;
   devices: Device[];
   setDevices: React.Dispatch<React.SetStateAction<Device[]>>;
   fetchDevices: () => Promise<void>;
@@ -38,26 +36,33 @@ const DeviceContext = createContext<DeviceContextType | undefined>(undefined);
 export const DeviceProvider = ({ children }: { children: ReactNode }) => {
   const [devices, setDevices] = useState<Device[]>([]);
   const { isLoading, user } = useUser();
+  const [isLoadingDevices, setIsLoadingDevices] = useState(true);
 
   useEffect(() => {
-    if (!isLoading && user) { // If user is loaded and not loading
+    if (!isLoading && user) {
+      // If user is loaded and not loading
       fetchDevices();
     }
   }, [isLoading]);
 
   const fetchDevices = async () => {
+    setIsLoadingDevices(true);
     try {
       const data = await apiCall({
         method: "GET",
         path: "/device/get-list/",
       });
       if (data.status === "OK") {
-        setDevices(data.device_datas);
-        showNotification({
-          title: "Devices Loaded",
-          message: data.error,
-          color: "green",
-        });
+        let devices = [];
+        for (var key in data.data) {
+          devices.push(data.data[key]);
+        }
+        setDevices(devices);
+        // showNotification({
+        //   title: "Devices Loaded",
+        //   message: data.error,
+        //   color: "green",
+        // });
       } else {
         throw new Error(data.error);
       }
@@ -68,9 +73,15 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
         color: "red",
       });
     }
+    setTimeout(() => {
+      // Simulate loading time
+      setIsLoadingDevices(false);
+    }, 1000);
   };
 
   const addDevice = async (deviceData: Device) => {
+    setIsLoadingDevices(true);
+
     try {
       const data = await apiCall({
         method: "POST",
@@ -78,7 +89,7 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
         data: deviceData,
       });
       if (data.status === "OK") {
-        setDevices((prev) => [...prev, data.device_data]);
+        setDevices((prev) => [...prev, data.data]);
         showNotification({
           title: "Device Added",
           message: data.error,
@@ -94,9 +105,15 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
         color: "red",
       });
     }
+    setTimeout(() => {
+      // Simulate loading time
+      setIsLoadingDevices(false);
+    }, 1000);
   };
 
   const updateDevice = async (deviceData: Device) => {
+    setIsLoadingDevices(true);
+
     try {
       const data = await apiCall({
         method: "POST",
@@ -111,7 +128,7 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
         );
         showNotification({
           title: "Device Updated",
-          message: "The device has been successfully updated.",
+          message: data.error,
           color: "green",
         });
       } else {
@@ -124,9 +141,15 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
         color: "red",
       });
     }
+    setTimeout(() => {
+      // Simulate loading time
+      setIsLoadingDevices(false);
+    }, 1000);
   };
 
   const deleteDevice = async (deviceId: string) => {
+    setIsLoadingDevices(true);
+
     try {
       const data = await apiCall({
         method: "GET",
@@ -136,7 +159,7 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
         setDevices((prev) => prev.filter((d) => d.device_id !== deviceId));
         showNotification({
           title: "Device Deleted",
-          message: "The device has been successfully deleted.",
+          message: data.error,
           color: "green",
         });
       } else {
@@ -149,11 +172,16 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
         color: "red",
       });
     }
+    setTimeout(() => {
+      // Simulate loading time
+      setIsLoadingDevices(false);
+    }, 1000);
   };
 
   return (
     <DeviceContext.Provider
       value={{
+        isLoadingDevices,
         devices,
         setDevices,
         fetchDevices,
