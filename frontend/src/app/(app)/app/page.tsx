@@ -2,8 +2,12 @@
 
 import { Badge, Button, Grid, Group, Space, Text, Title, Container, SimpleGrid, Skeleton, rem } from "@mantine/core";
 
+import { useDevices } from "@/components/Contexts/DeviceContext";
 import MapChart from "../../../components/app/MapChart";
 import { DeviceTable } from "@/components/app/tables/DeviceTable";
+import { ProgressCard } from "@/components/app/ProgressCard";
+import { useState } from "react";
+import { DeviceFormValues } from "@/components/app/forms/DeviceDataModalForm";
 
 const PRIMARY_COL_HEIGHT = rem(400);
 
@@ -60,7 +64,13 @@ const devices_mock = [
   },
 ];
 
+
+
 const App = () => {
+
+  const { devices } = useDevices();
+  const [selectedDevice, setSelectedDevice] = useState<DeviceFormValues | null>(null);
+  const onlineDevicess = devices.filter((devicee) => devicee.status === "Online");
 
   const SECONDARY_COL_HEIGHT = `calc(${PRIMARY_COL_HEIGHT} / 2 - var(--mantine-spacing-md) / 2)`;
 
@@ -79,15 +89,15 @@ const App = () => {
           <Grid.Col span={6}>
             <Group justify="center" gap="xl">
               <Badge color="green" size="lg" >
-                {onlineDevices.length} Devices online
+                {onlineDevicess.length} Devices online
               </Badge>
               <Badge color="red" size="lg">
-                {devices_mock.length - onlineDevices.length} Devices offline
+                {devices.length - onlineDevicess.length} Devices offline
               </Badge>
             </Group>
           </Grid.Col>
           <Grid.Col span={6}>
-            <Skeleton height={SECONDARY_COL_HEIGHT} radius="md" animate={true} />
+             <ProgressCard/>
           </Grid.Col>
         </Grid>
       </SimpleGrid>
