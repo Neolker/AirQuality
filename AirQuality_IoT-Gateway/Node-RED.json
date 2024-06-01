@@ -106,207 +106,6 @@
         "h": 142
     },
     {
-        "id": "29fba84a.b2af58",
-        "type": "mqtt-broker",
-        "name": "",
-        "broker": "127.0.0.1",
-        "port": "1883",
-        "clientid": "",
-        "autoConnect": true,
-        "usetls": false,
-        "protocolVersion": "4",
-        "keepalive": "60",
-        "cleansession": true,
-        "autoUnsubscribe": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": "",
-        "birthMsg": {},
-        "closeTopic": "",
-        "closePayload": "",
-        "closeMsg": {},
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": "",
-        "willMsg": {},
-        "userProps": "",
-        "sessionExpiry": ""
-    },
-    {
-        "id": "bf6a3c96.35048",
-        "type": "ui_base",
-        "theme": {
-            "name": "theme-light",
-            "lightTheme": {
-                "default": "#0094CE",
-                "baseColor": "#0094CE",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": true,
-                "reset": false
-            },
-            "darkTheme": {
-                "default": "#097479",
-                "baseColor": "#097479",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": false
-            },
-            "customTheme": {
-                "name": "Untitled Theme 1",
-                "default": "#4B7930",
-                "baseColor": "#4B7930",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
-            },
-            "themeState": {
-                "base-color": {
-                    "default": "#0094CE",
-                    "value": "#0094CE",
-                    "edited": false
-                },
-                "page-titlebar-backgroundColor": {
-                    "value": "#0094CE",
-                    "edited": false
-                },
-                "page-backgroundColor": {
-                    "value": "#fafafa",
-                    "edited": false
-                },
-                "page-sidebar-backgroundColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "group-textColor": {
-                    "value": "#1bbfff",
-                    "edited": false
-                },
-                "group-borderColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "group-backgroundColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "widget-textColor": {
-                    "value": "#111111",
-                    "edited": false
-                },
-                "widget-backgroundColor": {
-                    "value": "#0094ce",
-                    "edited": false
-                },
-                "widget-borderColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "base-font": {
-                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
-                }
-            },
-            "angularTheme": {
-                "primary": "indigo",
-                "accents": "blue",
-                "warn": "red",
-                "background": "grey",
-                "palette": "light"
-            }
-        },
-        "site": {
-            "name": "Node-RED Dashboard",
-            "hideToolbar": "false",
-            "allowSwipe": "false",
-            "allowTempTheme": "true",
-            "dateFormat": "DD/MM/YYYY",
-            "sizes": {
-                "sx": 48,
-                "sy": 48,
-                "gx": 6,
-                "gy": 6,
-                "cx": 6,
-                "cy": 6,
-                "px": 0,
-                "py": 0
-            }
-        }
-    },
-    {
-        "id": "11207769.c31889",
-        "type": "ui_tab",
-        "name": "Home",
-        "icon": "dashboard"
-    },
-    {
-        "id": "57ff470b.93fdf8",
-        "type": "ui_group",
-        "name": "AirQuality",
-        "tab": "11207769.c31889",
-        "order": 1,
-        "disp": true,
-        "width": "10",
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "aaf3d3de7c4e5dd8",
-        "type": "MySQLdatabase",
-        "name": "AirQualityHubDB",
-        "host": "localhost",
-        "port": "3306",
-        "db": "air_quiality_hub",
-        "tz": "",
-        "charset": "UTF8"
-    },
-    {
-        "id": "6cf82e37.9a1db",
-        "type": "MySQLdatabase",
-        "name": "",
-        "host": "127.0.0.1",
-        "port": "3306",
-        "db": "sys",
-        "tz": "",
-        "charset": ""
-    },
-    {
-        "id": "ef3d1f53.8d09a",
-        "type": "mqtt-broker",
-        "broker": "localhost",
-        "port": "1883",
-        "clientid": "NodeRedUI",
-        "usetls": false,
-        "compatmode": true,
-        "keepalive": "15",
-        "cleansession": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": "",
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": ""
-    },
-    {
-        "id": "7b11ed0f.750644",
-        "type": "ui_group",
-        "name": "MQTT",
-        "tab": "670bfbe.e66d904",
-        "order": 1,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "ad2ac2df.6f4bf",
-        "type": "ui_group",
-        "name": "Context",
-        "tab": "670bfbe.e66d904",
-        "order": 2,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "670bfbe.e66d904",
-        "type": "ui_tab",
-        "name": "Demo",
-        "icon": "dashboard"
-    },
-    {
         "id": "cbf82508.506aa8",
         "type": "debug",
         "z": "2c41a2bd.aa36ae",
@@ -750,15 +549,15 @@
         "title": "Temperature",
         "label": "°C",
         "format": "{{value}} °C",
-        "min": "-20",
+        "min": "0",
         "max": "40",
         "colors": [
             "#00b500",
             "#e6e600",
             "#ca3838"
         ],
-        "seg1": "20",
-        "seg2": "25",
+        "seg1": "25",
+        "seg2": "30",
         "diff": false,
         "className": "",
         "x": 470,
@@ -854,5 +653,59 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "aaf3d3de7c4e5dd8",
+        "type": "MySQLdatabase",
+        "name": "AirQualityHubDB",
+        "host": "localhost",
+        "port": "3306",
+        "db": "air_quiality_hub",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "29fba84a.b2af58",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "127.0.0.1",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "57ff470b.93fdf8",
+        "type": "ui_group",
+        "name": "AirQuality",
+        "tab": "11207769.c31889",
+        "order": 1,
+        "disp": true,
+        "width": "7",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "11207769.c31889",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard"
     }
 ]
