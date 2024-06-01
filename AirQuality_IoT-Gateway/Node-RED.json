@@ -133,6 +133,28 @@
         "h": 142
     },
     {
+        "id": "6f22e4561484bb5c",
+        "type": "group",
+        "z": "18c6f6f8543c7a4b",
+        "name": "Send CO2 value to ZivyObraz.eu",
+        "style": {
+            "stroke": "#001f60",
+            "fill": "#bfc7d7",
+            "fill-opacity": "0.5",
+            "label": true,
+            "color": "#000000"
+        },
+        "nodes": [
+            "c20df5a9.12163",
+            "df0bbacb.4261e8",
+            "36edf69b.2b1e52"
+        ],
+        "x": 694,
+        "y": 19,
+        "w": 572,
+        "h": 82
+    },
+    {
         "id": "29fba84a.b2af58",
         "type": "mqtt-broker",
         "name": "",
@@ -546,7 +568,8 @@
         "y": 420,
         "wires": [
             [
-                "662ff4ccbea17096"
+                "662ff4ccbea17096",
+                "c20df5a9.12163"
             ]
         ]
     },
@@ -575,7 +598,7 @@
         "z": "18c6f6f8543c7a4b",
         "g": "7f02aa8f2533d063",
         "name": "msg.payload",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -887,13 +910,13 @@
         "type": "inject",
         "z": "18c6f6f8543c7a4b",
         "g": "0f1893f389d3821c",
-        "name": "Timer 30 sec",
+        "name": "Timer 20 sec",
         "props": [
             {
                 "p": "payload"
             }
         ],
-        "repeat": "30",
+        "repeat": "20",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
@@ -1021,7 +1044,7 @@
         "z": "18c6f6f8543c7a4b",
         "g": "0f1893f389d3821c",
         "name": "Returned data",
-        "func": "let unixts=0;\nlet result=msg.payload;\nlet resultDecoded = JSON.parse(result);\nif(resultDecoded.data[0].status===\"OK\"&&resultDecoded.data[0][\"unix-time\"]>0){\n\tunixts=parseInt(resultDecoded.data[0][\"unix-time\"]);\n\t}\nmsg.payload=unixts;\nreturn msg;\n",
+        "func": "let unixts=0;\nlet result=msg.payload;\nif (result !== \"Error: Serial number not found.\") {\n\tlet resultDecoded = JSON.parse(result);\n\tif(resultDecoded.data[0].status===\"OK\"&&resultDecoded.data[0][\"unix-time\"]>0){\n\t\tunixts=parseInt(resultDecoded.data[0][\"unix-time\"]);\n\t\t}\n\t}\nmsg.payload=unixts;\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1071,5 +1094,60 @@
                 "7f9eaec6dac49e3c"
             ]
         ]
+    },
+    {
+        "id": "c20df5a9.12163",
+        "type": "function",
+        "z": "18c6f6f8543c7a4b",
+        "g": "6f22e4561484bb5c",
+        "name": "ZivyObraz",
+        "func": "let co2 = global.get(\"co2\");\nmsg.url = \"http://in.zivyobraz.eu/?import_key=pR0F58LYbDcJ7jen&co2=\" + co2;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 60,
+        "wires": [
+            [
+                "df0bbacb.4261e8"
+            ]
+        ]
+    },
+    {
+        "id": "df0bbacb.4261e8",
+        "type": "http request",
+        "z": "18c6f6f8543c7a4b",
+        "g": "6f22e4561484bb5c",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "url": "",
+        "tls": "",
+        "x": 970,
+        "y": 60,
+        "wires": [
+            [
+                "36edf69b.2b1e52"
+            ]
+        ]
+    },
+    {
+        "id": "36edf69b.2b1e52",
+        "type": "debug",
+        "z": "18c6f6f8543c7a4b",
+        "g": "6f22e4561484bb5c",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1150,
+        "y": 60,
+        "wires": []
     }
 ]
