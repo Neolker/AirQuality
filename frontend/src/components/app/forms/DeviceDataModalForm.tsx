@@ -1,4 +1,4 @@
-import { Modal, Button, TextInput, NumberInput, Group } from "@mantine/core";
+import { Button, Group, Modal, NumberInput, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useEffect } from "react";
 
@@ -19,8 +19,8 @@ export interface DeviceFormValues {
   co2_red: number;
 }
 
-const validateCO2Levels = (values) => {
-  const errors = {};
+const validateCO2Levels = (values: { co2_green: number; co2_yellow: number; co2_red: number; serial_number: string | any[]; }): Record<string, string> => {
+  const errors: Record<string, string> = {};
 
   if (values.co2_green >= values.co2_yellow) {
     errors.co2_green = "CO2 Green level must be lower than CO2 Yellow level";
