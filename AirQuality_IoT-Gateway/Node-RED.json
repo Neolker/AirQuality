@@ -76,7 +76,7 @@
         ],
         "x": 374,
         "y": 299,
-        "w": 852,
+        "w": 892,
         "h": 242
     },
     {
@@ -88,7 +88,8 @@
             "stroke": "#ff0000",
             "fill": "#ffbfbf",
             "label": true,
-            "color": "#000000"
+            "color": "#000000",
+            "fill-opacity": "0.5"
         },
         "nodes": [
             "a104cb68d61cceeb",
@@ -102,7 +103,35 @@
         ],
         "x": 14,
         "y": 579,
-        "w": 1032,
+        "w": 852,
+        "h": 142
+    },
+    {
+        "id": "254d39a2500a9512",
+        "type": "group",
+        "z": "2c41a2bd.aa36ae",
+        "name": "Send data into BE",
+        "style": {
+            "stroke": "#92d04f",
+            "fill": "#e3f3d3",
+            "label": true,
+            "color": "#000000",
+            "fill-opacity": "0.5"
+        },
+        "nodes": [
+            "9d49ff59490cd0ae",
+            "c0d282d59f22a89c",
+            "0d4baf8bcae8b96a",
+            "a111e2a31b0a4f0c",
+            "93d4748c6eb35911",
+            "3c3d1fd375802da3",
+            "a565a7361537d2ea",
+            "f26240aa7d4bd110",
+            "1e2189eaf2890ead"
+        ],
+        "x": 14,
+        "y": 759,
+        "w": 1132,
         "h": 142
     },
     {
@@ -119,8 +148,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1110,
-        "y": 380,
+        "x": 1150,
+        "y": 420,
         "wires": []
     },
     {
@@ -130,8 +159,8 @@
         "g": "fe317d2a84d43cfa",
         "mydb": "aaf3d3de7c4e5dd8",
         "name": "",
-        "x": 930,
-        "y": 380,
+        "x": 950,
+        "y": 420,
         "wires": [
             [
                 "cbf82508.506aa8"
@@ -176,7 +205,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 120,
-        "y": 120,
+        "y": 60,
         "wires": [
             [
                 "1be6d9d5b1b90247",
@@ -199,7 +228,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 130,
-        "y": 60,
+        "y": 120,
         "wires": [
             [
                 "3fa03634d1f7ddbc",
@@ -255,7 +284,7 @@
         "fontSize": 16,
         "color": "#000000",
         "x": 480,
-        "y": 60,
+        "y": 100,
         "wires": []
     },
     {
@@ -277,7 +306,7 @@
         "fontSize": 16,
         "color": "#000000",
         "x": 480,
-        "y": 100,
+        "y": 60,
         "wires": []
     },
     {
@@ -294,7 +323,7 @@
         "finalize": "",
         "libs": [],
         "x": 710,
-        "y": 380,
+        "y": 420,
         "wires": [
             [
                 "4d7282eb.906e7c"
@@ -317,7 +346,9 @@
         "x": 480,
         "y": 420,
         "wires": [
-            []
+            [
+                "cf880a4bd7c17c1f"
+            ]
         ]
     },
     {
@@ -334,7 +365,7 @@
         "finalize": "",
         "libs": [],
         "x": 480,
-        "y": 340,
+        "y": 380,
         "wires": [
             []
         ]
@@ -353,7 +384,7 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 490,
+        "x": 750,
         "y": 680,
         "wires": []
     },
@@ -383,13 +414,13 @@
         "type": "inject",
         "z": "2c41a2bd.aa36ae",
         "g": "d33e588d2ee054ba",
-        "name": "Timer 30 sec.",
+        "name": "Timer 10 min.",
         "props": [
             {
                 "p": "payload"
             }
         ],
-        "repeat": "30",
+        "repeat": "600",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
@@ -418,11 +449,9 @@
         "finalize": "",
         "libs": [],
         "x": 490,
-        "y": 380,
+        "y": 340,
         "wires": [
-            [
-                "cf880a4bd7c17c1f"
-            ]
+            []
         ]
     },
     {
@@ -468,8 +497,8 @@
         "g": "d33e588d2ee054ba",
         "mydb": "aaf3d3de7c4e5dd8",
         "name": "",
-        "x": 930,
-        "y": 620,
+        "x": 150,
+        "y": 680,
         "wires": [
             [
                 "cd8a5b101869bf7e"
@@ -489,7 +518,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 130,
+        "x": 350,
         "y": 680,
         "wires": [
             [
@@ -504,7 +533,7 @@
         "g": "d33e588d2ee054ba",
         "mydb": "aaf3d3de7c4e5dd8",
         "name": "",
-        "x": 310,
+        "x": 550,
         "y": 680,
         "wires": [
             [
@@ -619,9 +648,9 @@
         "gtype": "compass",
         "title": "Position",
         "label": "",
-        "format": "{{value-1}}",
-        "min": "0",
-        "max": "5",
+        "format": "{{value}}",
+        "min": "1",
+        "max": "6",
         "colors": [
             "#00b500",
             "#e6e600",
@@ -652,6 +681,196 @@
         "y": 500,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "9d49ff59490cd0ae",
+        "type": "inject",
+        "z": "2c41a2bd.aa36ae",
+        "g": "254d39a2500a9512",
+        "name": "Timer 30 sec",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "30",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 140,
+        "y": 800,
+        "wires": [
+            [
+                "0d4baf8bcae8b96a"
+            ]
+        ]
+    },
+    {
+        "id": "c0d282d59f22a89c",
+        "type": "debug",
+        "z": "2c41a2bd.aa36ae",
+        "g": "254d39a2500a9512",
+        "name": "msg.payload",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "0d4baf8bcae8b96a",
+        "type": "function",
+        "z": "2c41a2bd.aa36ae",
+        "g": "254d39a2500a9512",
+        "name": "SELECT main data",
+        "func": "msg.topic = \"SELECT * FROM main_data WHERE send=0 ORDER BY unix_ts ASC LIMIT 1\";\nmsg.payload=[];\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 800,
+        "wires": [
+            [
+                "a111e2a31b0a4f0c"
+            ]
+        ]
+    },
+    {
+        "id": "a111e2a31b0a4f0c",
+        "type": "mysql",
+        "z": "2c41a2bd.aa36ae",
+        "g": "254d39a2500a9512",
+        "mydb": "aaf3d3de7c4e5dd8",
+        "name": "",
+        "x": 570,
+        "y": 800,
+        "wires": [
+            [
+                "93d4748c6eb35911"
+            ]
+        ]
+    },
+    {
+        "id": "93d4748c6eb35911",
+        "type": "function",
+        "z": "2c41a2bd.aa36ae",
+        "g": "254d39a2500a9512",
+        "name": "Insert into main data",
+        "func": "let dataUpdate={\n        \"serial\": \"xxxx-xxxx-xxxx-xxxx-xxxx\",\n        \"data\": [\n            {\n                \"unix-time\": 0, \n                \"co2-avg\": 0.0, \n                \"co2-trend\": 0, \n                \"co2-unit\": \"ppm\",\n                \"temp-avg\": 0.0,\n                \"temp-trend\": 0,\n                \"temp-unit\": \"°C\",\n                \"humi-avg\": 0.0, \n                \"humi-trend\": 0, \n                \"humi-unit\": \"%RH\",\n                \"batt-avg\": 0.0, \n                \"batt-unit\": \"V\",\n                \"position\": 0\n            }\n        ]\n    };\nif(msg.payload.length > 0){\n    msg.payload.forEach((element) => {     \n        dataUpdate={\n                \"serial\": element.serial_number,\n                \"data\": [\n                    {\n                        \"unix-time\": element.unix_ts, \n                        \"co2-avg\": element.co2_avg, \n                        \"co2-trend\": element.co2_trend, \n                        \"co2-unit\": \"ppm\",\n                        \"temp-avg\": element.temp_avg,\n                        \"temp-trend\": element.temp_trend,\n                        \"temp-unit\": \"°C\",\n                        \"humi-avg\":  element.humi_avg, \n                        \"humi-trend\": element.humi_trend, \n                        \"humi-unit\": \"%RH\",\n                        \"batt-avg\": element.battery, \n                        \"batt-unit\": \"V\",\n                        \"position\": element.position\n                    }\n                ]\n            };\n        });    \n    }\nmsg.payload = dataUpdate;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 800,
+        "wires": [
+            [
+                "3c3d1fd375802da3"
+            ]
+        ]
+    },
+    {
+        "id": "3c3d1fd375802da3",
+        "type": "http request",
+        "z": "2c41a2bd.aa36ae",
+        "g": "254d39a2500a9512",
+        "name": "Send data into BE",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://air-quality-b.tes-t.cz/data-update/",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": "application/json"
+            }
+        ],
+        "x": 150,
+        "y": 860,
+        "wires": [
+            [
+                "a565a7361537d2ea"
+            ]
+        ]
+    },
+    {
+        "id": "a565a7361537d2ea",
+        "type": "function",
+        "z": "2c41a2bd.aa36ae",
+        "g": "254d39a2500a9512",
+        "name": "Returned data",
+        "func": "let unixts=0;\nlet result=msg.payload;\nlet resultDecoded = JSON.parse(result);\nif(resultDecoded.data[0].status===\"OK\"&&resultDecoded.data[0][\"unix-time\"]>0){\n\tunixts=parseInt(resultDecoded.data[0][\"unix-time\"]);\n\t}\nmsg.payload=unixts;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 860,
+        "wires": [
+            [
+                "f26240aa7d4bd110"
+            ]
+        ]
+    },
+    {
+        "id": "f26240aa7d4bd110",
+        "type": "function",
+        "z": "2c41a2bd.aa36ae",
+        "g": "254d39a2500a9512",
+        "name": "Delete inserted line",
+        "func": "let tsx=msg.payload;\nmsg.topic = \"UPDATE main_data SET send=1 WHERE send=0 AND unix_ts='\"+tsx+\"' ORDER BY unix_ts ASC LIMIT 1\";\nmsg.payload=[];\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 860,
+        "wires": [
+            [
+                "1e2189eaf2890ead"
+            ]
+        ]
+    },
+    {
+        "id": "1e2189eaf2890ead",
+        "type": "mysql",
+        "z": "2c41a2bd.aa36ae",
+        "g": "254d39a2500a9512",
+        "mydb": "aaf3d3de7c4e5dd8",
+        "name": "",
+        "x": 810,
+        "y": 860,
+        "wires": [
+            [
+                "c0d282d59f22a89c"
+            ]
         ]
     },
     {
