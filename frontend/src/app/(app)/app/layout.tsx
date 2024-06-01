@@ -10,6 +10,7 @@ import { Notifications } from "@mantine/notifications";
 import "@mantine/notifications/styles.css";
 import { UserProvider } from "@/components/Contexts/UserContext";
 import { DeviceProvider } from "@/components/Contexts/DeviceContext";
+import { ModalsProvider } from "@mantine/modals";
 
 const myTheme = createTheme({
   primaryColor: "blue",
@@ -35,14 +36,16 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <MantineProvider defaultColorScheme="dark" theme={myTheme}>
-          <Notifications />
-          <UserProvider>
-            <DeviceProvider>
-              <AuthenticationWrapper>
-                <Shell>{children}</Shell>
-              </AuthenticationWrapper>
-            </DeviceProvider>
-          </UserProvider>
+          <ModalsProvider>
+            <Notifications />
+            <UserProvider>
+              <DeviceProvider>
+                <AuthenticationWrapper>
+                  <Shell>{children}</Shell>
+                </AuthenticationWrapper>
+              </DeviceProvider>
+            </UserProvider>
+          </ModalsProvider>
         </MantineProvider>
       </body>
     </html>
