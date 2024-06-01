@@ -12,6 +12,7 @@ import { showNotification } from "@mantine/notifications";
 import { useUser } from "./UserContext";
 
 interface Device {
+  status: string;
   serial_number: string;
   device_id: string;
   name: string;
@@ -35,7 +36,6 @@ interface DeviceContextType {
   deleteDevice: (deviceId: string) => Promise<void>;
   getSensorData: (deviceId: string, date: string) => Promise<SensorData[]>;
   getDeviceState: (deviceId: string) => Promise<boolean>;
-  getAllDeviceStates: () => Promise<{ device_id: string, is_online: boolean }[]>;
 }
 
 const DeviceContext = createContext<DeviceContextType | undefined>(undefined);
@@ -44,13 +44,28 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
   const [devices, setDevices] = useState<Device[]>([]);
   const { isLoading, user } = useUser();
   const [isLoadingDevices, setIsLoadingDevices] = useState(true);
+  const apiCallDelay =
+    parseInt(process.env.NEXT_PUBLIC_API_CALL_DELAY ?? "") || 1000;
+  const refreshSensorDataInterval = parseInt(process.env.NEXT_PUBLIC_REFRESH_SENSOR_DATA_INTERVAL ?? "") || 300005;;
 
   useEffect(() => {
+    const fetchDevicesData = async () => {
+      await fetchDevices();
+
+      await updateAllDeviceStates();
+    };
     if (!isLoading && user) {
       // If user is loaded and not loading
-      fetchDevices();
+      fetchDevicesData();
+      // Set interval to fetch device states every 5 minutes
+      const interval = setInterval(() => {
+        updateAllDeviceStates();
+      }, refreshSensorDataInterval);
+
+      // Cleanup interval on component unmount
+      return () => clearInterval(interval);
     }
-  }, [isLoading]);
+  }, [isLoading, user]);
 
   const fetchDevices = async () => {
     setIsLoadingDevices(true);
@@ -58,7 +73,7 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
       const data = await apiCall({
         method: "GET",
         path: "/device/get-list/",
-      })
+      });
 
       if (data.status === "OK") {
         let devices = [];
@@ -79,7 +94,7 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
     setTimeout(() => {
       // Simulate loading time
       setIsLoadingDevices(false);
-    }, 1000);
+    }, apiCallDelay);
   };
 
   const addDevice = async (deviceData: Device) => {
@@ -112,7 +127,7 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
     setTimeout(() => {
       // Simulate loading time
       setIsLoadingDevices(false);
-    }, 1000);
+    }, apiCallDelay);
   };
 
   const updateDevice = async (deviceData: Device) => {
@@ -123,7 +138,7 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
         method: "POST",
         path: "/device/update/",
         data: deviceData,
-      }); // 5-second timeout
+      });
 
       if (data.status === "OK") {
         setDevices((prev) =>
@@ -149,7 +164,7 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
     setTimeout(() => {
       // Simulate loading time
       setIsLoadingDevices(false);
-    }, 1000);
+    }, apiCallDelay);
   };
 
   const deleteDevice = async (deviceId: string) => {
@@ -159,7 +174,7 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
       const data = await apiCall({
         method: "GET",
         path: `/device/delete/?device_id=${deviceId}`,
-      }); // 5-second timeout
+      });
 
       if (data.status === "OK") {
         setDevices((prev) => prev.filter((d) => d.device_id !== deviceId));
@@ -181,7 +196,7 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
     setTimeout(() => {
       // Simulate loading time
       setIsLoadingDevices(false);
-    }, 1000);
+    }, apiCallDelay);
   };
 
   const getSensorData = async (deviceId: string, date: string) => {
@@ -190,7 +205,7 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
       const data = await apiCall({
         method: "GET",
         path: `/data/get-data/?device_id=${deviceId}&date=${date}`,
-      }); // 5-second timeout
+      });
 
       if (data.status === "OK") {
         return data.sensors_datas;
@@ -215,7 +230,7 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
       const data = await apiCall({
         method: "GET",
         path: `/data/get-state/?device_id=${deviceId}`,
-      }); // 5-second timeout
+      });
 
       if (data.status === "OK") {
         return data.is_online;
@@ -240,10 +255,14 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
       const data = await apiCall({
         method: "GET",
         path: `/data/get-all-states/`,
-      }); // 5-second timeout
+      });
 
       if (data.status === "OK") {
-        return data.states;
+        let states = [];
+        for (var key in data.data) {
+          states.push({ device_id: key, status: data.data[key] });
+        }
+        return states;
       } else {
         throw new Error(data.error);
       }
@@ -255,8 +274,21 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
       });
       return [];
     } finally {
-      setIsLoadingDevices(false);
+      setTimeout(() => {
+        // Simulate loading time
+        setIsLoadingDevices(false);
+      }, apiCallDelay);
     }
+  };
+
+  const updateAllDeviceStates = async () => {
+    const states = await getAllDeviceStates();
+    setDevices((prevDevices) =>
+      prevDevices.map((device) => {
+        const state = states.find((s) => s.device_id === device.device_id);
+        return state ? { ...device, status: state.status } : device;
+      })
+    );
   };
 
   return (
@@ -271,7 +303,6 @@ export const DeviceProvider = ({ children }: { children: ReactNode }) => {
         deleteDevice,
         getSensorData,
         getDeviceState,
-        getAllDeviceStates,
       }}
     >
       {children}
