@@ -56,17 +56,18 @@ export const DeviceCard = ({
       centered: true,
       children: (
         <Text size="sm">
-          Are you sure you want to unlink device{" "}
+          Are you sure you want to delete device:{" "}
           {
             <>
               <Text fw={700}>Name: {name}</Text>
               <Text fw={700}>SN: {serial_number}</Text>
             </>
           }
+          All data will be deleted!!.
         </Text>
       ),
       labels: {
-        confirm: "Unlink",
+        confirm: "Delete device",
         cancel: "Cancel",
       },
       confirmProps: { color: "red" },
