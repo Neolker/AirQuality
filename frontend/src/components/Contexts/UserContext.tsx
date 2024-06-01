@@ -44,6 +44,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     setIsLoading(true);
     const cookies = parseCookies();
+    console.log("Cookies", cookies);
     if (cookies.user) {
       setUser(JSON.parse(cookies.user));
     }
@@ -56,15 +57,15 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   // Save user data to cookies whenever it changes
   useEffect(() => {
     setIsLoading(true);
-    if (user) {
+    console.log("User changed", user);
+    if (user !== null) {
       setCookie(null, "user", JSON.stringify(user), {
         maxAge: 3600, // 1 hour
-        path: "/",
-        secure: process.env.NODE_ENV === "production", // Only set secure flag in production
-        sameSite: "lax",
+        path: "/",        
       });
     } else {
-      destroyCookie(null, "user");
+      console.log("Destroying cookie");
+      destroyCookie({}, "user");
     }
     setTimeout(() => {
       // Simulate loading time
@@ -108,7 +109,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         path: "/user/logout/",
       });
       if (response.status === "OK") {
-        setUser(null);
+        setTimeout(() => {
+          setUser(null);
+        }, 1000);
+
         notifications.show({
           title: "Logged Out",
           message: "You have been successfully logged out.",
