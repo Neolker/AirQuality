@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mantine/carousel": "^7.10.1",
     "@mantine/charts": "^7.10.0",
     "@mantine/core": "^7.10.0",
     "@mantine/dates": "^7.10.0",
@@ -25,6 +26,7 @@
     "nookies": "^2.5.2",
     "react": "^18",
     "react-dom": "^18",
+    "react-simple-maps": "^3.0.0",
     "recharts": "^2.12.7"
   },
   "devDependencies": {
