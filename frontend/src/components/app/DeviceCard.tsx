@@ -7,8 +7,9 @@ import {
   Skeleton,
   Stack,
   Text,
-  useMantineTheme,
+  useMantineTheme
 } from "@mantine/core";
+import { modals } from "@mantine/modals";
 import {
   IconChartLine,
   IconCpu2,
@@ -48,6 +49,33 @@ export const DeviceCard = ({
 }: DeviceCardProps) => {
   const theme = useMantineTheme();
   const router = useRouter();
+
+  const deviceUnlink = () => {
+    modals.openConfirmModal({
+      title: "Unlink device",
+      centered: true,
+      children: (
+        <Text size="sm">
+          Are you sure you want to unlink device{" "}
+          {
+            <>
+              <Text fw={700}>Name: {name}</Text>
+              <Text fw={700}>SN: {serial_number}</Text>
+            </>
+          }
+        </Text>
+      ),
+      labels: {
+        confirm: "Unlink",
+        cancel: "Cancel",
+      },
+      confirmProps: { color: "red" },
+      onConfirm: () => {
+        onDelete(device_id);
+      },
+    });
+  };
+
   return (
     <Skeleton visible={isLoading} radius="md">
       <Card shadow="sm" padding="lg" radius="md" withBorder>
@@ -116,7 +144,9 @@ export const DeviceCard = ({
               variant="subtle"
               color="gray"
               size="lg"
-              onClick={onDelete}
+              onClick={() => {
+                deviceUnlink();
+              }}
             >
               <IconUnlink
                 style={{ width: "70%", height: "70%" }}
