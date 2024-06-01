@@ -37,6 +37,7 @@ const UserDataForm = ({
       email: user?.email || "",
       phone: user?.phone || "",
     });
+    form.resetDirty();  
   }, [user]);
 
   return (
