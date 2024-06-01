@@ -1,4 +1,11 @@
-import { Button, Group, Modal, NumberInput, TextInput } from "@mantine/core";
+import {
+  Button,
+  Group,
+  Modal,
+  NumberInput,
+  TextInput,
+  Tooltip,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useEffect } from "react";
 
@@ -19,7 +26,12 @@ export interface DeviceFormValues {
   co2_red: number;
 }
 
-const validateCO2Levels = (values: { co2_green: number; co2_yellow: number; co2_red: number; serial_number: string | any[]; }): Record<string, string> => {
+const validateCO2Levels = (values: {
+  co2_green: number;
+  co2_yellow: number;
+  co2_red: number;
+  serial_number: string | any[];
+}): Record<string, string> => {
   const errors: Record<string, string> = {};
 
   if (values.co2_green >= values.co2_yellow) {
@@ -42,13 +54,13 @@ const DeviceDataModalForm = ({
 }: DeviceModalFormProps) => {
   const form = useForm<DeviceFormValues>({
     initialValues: {
-      device_id: "",
-      serial_number: "",
-      name: "",
-      location: "",
-      co2_green: 1000,
-      co2_yellow: 2000,
-      co2_red: 25000,
+      device_id: initialValues?.device_id || "",
+      serial_number: initialValues?.serial_number || "",
+      name: initialValues?.name || "",
+      location: initialValues?.location || "",
+      co2_green: initialValues?.co2_green || 1000,
+      co2_yellow: initialValues?.co2_yellow || 2000,
+      co2_red: initialValues?.co2_red || 2500,
     },
     validate: validateCO2Levels,
   });
@@ -63,18 +75,24 @@ const DeviceDataModalForm = ({
       co2_yellow: initialValues?.co2_yellow || 2000,
       co2_red: initialValues?.co2_red || 2500,
     });
+    form.resetDirty();
   }, [initialValues]);
 
   return (
     <Modal
       opened={opened}
-      onClose={onClose}
+      onClose={() => {
+        form.reset();
+        form.resetDirty();
+        onClose();
+      }}
       title={initialValues ? "Edit device" : "Add device"}
     >
       <form
         onSubmit={form.onSubmit((values) => {
           onSubmit(values);
           form.reset();
+          form.resetDirty();
         })}
       >
         <TextInput label="Name" {...form.getInputProps("name")} required />
@@ -105,7 +123,18 @@ const DeviceDataModalForm = ({
           required
         />
         <Group justify="flex-end" mt="md">
-          <Button type="submit">Save changes</Button>
+          <Tooltip
+            label="Update the form first"
+            events={{
+              hover: !form.isDirty(),
+              focus: !form.isDirty(),
+              touch: !form.isDirty(),
+            }}
+          >
+            <Button type="submit" disabled={!form.isDirty()}>
+              Save changes
+            </Button>
+          </Tooltip>
         </Group>
       </form>
     </Modal>
