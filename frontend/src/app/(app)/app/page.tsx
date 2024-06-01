@@ -3,8 +3,9 @@
 import { Badge, Button, Grid, Group, Space, Text, Title, Container, SimpleGrid, Skeleton, rem } from "@mantine/core";
 
 import MapChart from "../../../components/app/MapChart";
+import { DeviceTable } from "@/components/app/tables/DeviceTable";
 
-const PRIMARY_COL_HEIGHT = rem(600);
+const PRIMARY_COL_HEIGHT = rem(400);
 
 const devices_mock = [
   {
@@ -70,29 +71,27 @@ const App = () => {
       <Group justify="space-between">
         <Group>
           <Title>Dashboard</Title>
-          <Badge color="green" size="lg">
-            {onlineDevices.length} Devices online
-          </Badge>
-          <Badge color="red" size="lg">
-            {devices_mock.length - onlineDevices.length} Devices offline
-          </Badge>
         </Group>
       </Group>
-      <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md" my="md">
-        <Skeleton height={PRIMARY_COL_HEIGHT} radius="md" animate={false} />
-        <Grid gutter="md">
-          <Grid.Col>
-            <Skeleton height={SECONDARY_COL_HEIGHT} radius="md" animate={false} />
+      <SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md" my="md">
+        <DeviceTable />
+        <Grid gutter="md" align="center">
+          <Grid.Col span={6}>
+            <Group justify="center" gap="xl">
+              <Badge color="green" size="lg" >
+                {onlineDevices.length} Devices online
+              </Badge>
+              <Badge color="red" size="lg">
+                {devices_mock.length - onlineDevices.length} Devices offline
+              </Badge>
+            </Group>
           </Grid.Col>
           <Grid.Col span={6}>
-            <Skeleton height={SECONDARY_COL_HEIGHT} radius="md" animate={false} />
-          </Grid.Col>
-          <Grid.Col span={6}>
-            <Skeleton height={SECONDARY_COL_HEIGHT} radius="md" animate={false} />
+            <Skeleton height={SECONDARY_COL_HEIGHT} radius="md" animate={true} />
           </Grid.Col>
         </Grid>
       </SimpleGrid>
-      <MapChart />
+      <MapChart/>
     </>
   );
 };
