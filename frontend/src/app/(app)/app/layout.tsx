@@ -1,16 +1,16 @@
+import AuthenticationWrapper from "@/components/AuthenticationWrapper";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import AuthenticationWrapper from "@/components/AuthenticationWrapper";
 
+import { DeviceProvider } from "@/components/Contexts/DeviceContext";
+import { UserProvider } from "@/components/Contexts/UserContext";
 import { Shell } from "@/components/Shell/Shell";
 import "@mantine/charts/styles.css";
 import { ColorSchemeScript, createTheme, MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
+import { ModalsProvider } from "@mantine/modals";
 import { Notifications } from "@mantine/notifications";
 import "@mantine/notifications/styles.css";
-import { UserProvider } from "@/components/Contexts/UserContext";
-import { DeviceProvider } from "@/components/Contexts/DeviceContext";
-import { ModalsProvider } from "@mantine/modals";
 
 const myTheme = createTheme({
   primaryColor: "blue",
