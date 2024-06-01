@@ -19,12 +19,14 @@
         "nodes": [
             "ead6ab588ac012a1",
             "3fa03634d1f7ddbc",
-            "1be6d9d5b1b90247"
+            "1be6d9d5b1b90247",
+            "3a33b4e58dd32e33",
+            "1bcf4e79217f1295"
         ],
         "x": 374,
         "y": 19,
         "w": 212,
-        "h": 162
+        "h": 242
     },
     {
         "id": "e12e191d879e2850",
@@ -41,12 +43,14 @@
         "nodes": [
             "cb57c0e6bf95f05e",
             "89d1850ab8de6df8",
-            "874b88a04f80ba22"
+            "874b88a04f80ba22",
+            "effd0ae8aad650f5",
+            "178905324401a626"
         ],
         "x": 14,
         "y": 19,
         "w": 212,
-        "h": 202
+        "h": 322
     },
     {
         "id": "fe317d2a84d43cfa",
@@ -66,12 +70,40 @@
             "cf880a4bd7c17c1f",
             "2ac12283fedaf804",
             "4c1e4d25361f416c",
-            "60180a63a1bf7c34"
+            "60180a63a1bf7c34",
+            "d334c622ea183440",
+            "8018a036369c18dc"
         ],
         "x": 374,
-        "y": 219,
+        "y": 299,
         "w": 852,
-        "h": 162
+        "h": 242
+    },
+    {
+        "id": "d33e588d2ee054ba",
+        "type": "group",
+        "z": "2c41a2bd.aa36ae",
+        "name": "AVG and trends from buffer to main data",
+        "style": {
+            "stroke": "#ff0000",
+            "fill": "#ffbfbf",
+            "label": true,
+            "color": "#000000"
+        },
+        "nodes": [
+            "a104cb68d61cceeb",
+            "b85777d87f329a77",
+            "dfb8b306b972216e",
+            "c5ec9714874e40f6",
+            "475cf5302ea30f27",
+            "156cefd656a81fcb",
+            "cd8a5b101869bf7e",
+            "15b65a6acb2a0303"
+        ],
+        "x": 14,
+        "y": 579,
+        "w": 1032,
+        "h": 142
     },
     {
         "id": "29fba84a.b2af58",
@@ -289,7 +321,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1110,
-        "y": 300,
+        "y": 380,
         "wires": []
     },
     {
@@ -300,7 +332,7 @@
         "mydb": "aaf3d3de7c4e5dd8",
         "name": "",
         "x": 930,
-        "y": 300,
+        "y": 380,
         "wires": [
             [
                 "cbf82508.506aa8"
@@ -389,7 +421,7 @@
         "gtype": "gage",
         "title": "CO2",
         "label": "ppm",
-        "format": "{{value}}",
+        "format": "{{value}} ppm",
         "min": 0,
         "max": "3000",
         "colors": [
@@ -455,7 +487,7 @@
         "z": "2c41a2bd.aa36ae",
         "g": "fe317d2a84d43cfa",
         "name": "Create new line into buffer",
-        "func": "let bat=global.get(\"battery\");\nlet co2 = global.get(\"co2\");\nlet serial = \"undefined\";\nlet serialGlobal = global.get(\"serial\");\nif (serialGlobal.length>5){\n    serial = serialGlobal;\n    }\nmsg.topic = \"INSERT INTO buffer (ts,serial_number,co2,temperature,humidity,battery,position) VALUES (?,?,?,?,?,?,?)\";\nmsg.payload=[Math.floor(Date.now() / 1000),serial,co2,0,0,bat,0];\nreturn msg;",
+        "func": "let bat=global.get(\"battery\");\nlet co2 = global.get(\"co2\");\nlet temp = global.get(\"temperature\");\nlet pos = global.get(\"position\");\nlet serial = \"undefined\";\nlet serialGlobal = global.get(\"serial\");\nif (serialGlobal.length>5){\n    serial = serialGlobal;\n    }\nmsg.topic = \"INSERT INTO buffer (ts,serial_number,co2,temperature,humidity,battery,position) VALUES (?,?,?,?,?,?,?)\";\nmsg.payload=[Math.floor(Date.now() / 1000),serial,co2,temp,0,bat,pos];\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -463,7 +495,7 @@
         "finalize": "",
         "libs": [],
         "x": 710,
-        "y": 300,
+        "y": 380,
         "wires": [
             [
                 "4d7282eb.906e7c"
@@ -484,7 +516,7 @@
         "finalize": "",
         "libs": [],
         "x": 480,
-        "y": 340,
+        "y": 420,
         "wires": [
             []
         ]
@@ -503,7 +535,7 @@
         "finalize": "",
         "libs": [],
         "x": 480,
-        "y": 260,
+        "y": 340,
         "wires": [
             []
         ]
@@ -512,8 +544,9 @@
         "id": "a104cb68d61cceeb",
         "type": "debug",
         "z": "2c41a2bd.aa36ae",
-        "name": "debug 4",
-        "active": true,
+        "g": "d33e588d2ee054ba",
+        "name": "msg.payload",
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -521,14 +554,15 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1020,
-        "y": 760,
+        "x": 490,
+        "y": 680,
         "wires": []
     },
     {
         "id": "b85777d87f329a77",
         "type": "function",
         "z": "2c41a2bd.aa36ae",
+        "g": "d33e588d2ee054ba",
         "name": "SELECT buffer",
         "func": "msg.topic = \"SELECT * FROM buffer ORDER BY ts ASC\";\nmsg.payload=[];\nreturn msg;\n",
         "outputs": 1,
@@ -537,8 +571,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
-        "y": 560,
+        "x": 320,
+        "y": 620,
         "wires": [
             [
                 "c5ec9714874e40f6"
@@ -549,6 +583,7 @@
         "id": "dfb8b306b972216e",
         "type": "inject",
         "z": "2c41a2bd.aa36ae",
+        "g": "d33e588d2ee054ba",
         "name": "Timer 30 sec.",
         "props": [
             {
@@ -563,7 +598,7 @@
         "payload": "1",
         "payloadType": "num",
         "x": 140,
-        "y": 560,
+        "y": 620,
         "wires": [
             [
                 "b85777d87f329a77"
@@ -584,7 +619,7 @@
         "finalize": "",
         "libs": [],
         "x": 490,
-        "y": 300,
+        "y": 380,
         "wires": [
             [
                 "cf880a4bd7c17c1f"
@@ -595,10 +630,11 @@
         "id": "c5ec9714874e40f6",
         "type": "mysql",
         "z": "2c41a2bd.aa36ae",
+        "g": "d33e588d2ee054ba",
         "mydb": "aaf3d3de7c4e5dd8",
         "name": "",
-        "x": 590,
-        "y": 560,
+        "x": 510,
+        "y": 620,
         "wires": [
             [
                 "475cf5302ea30f27"
@@ -609,16 +645,17 @@
         "id": "475cf5302ea30f27",
         "type": "function",
         "z": "2c41a2bd.aa36ae",
-        "name": "function 3",
-        "func": "let battery=0;\nlet trend_co2=0;\nlet last_co2=0;\nlet sum_co2=0;\nlet count_co2=0;\nlet avg_co2=0;\nlet serial=\"xxx\";\nif(msg.payload.length > 0){\n    msg.payload.forEach((element) => {     \n        battery=element.battery;\n        if(last_co2<element.co2){trend_co2=1;}\n        else if(last_co2>element.co2){trend_co2=(-1);}   \n        else{trend_co2=0;}\n        last_co2=element.co2;\n        sum_co2+=element.co2;         \n        count_co2++;   \n        serial=element.serial_number;                 \n        });\n    if(count_co2>0){\n        avg_co2=(sum_co2/count_co2);\n        }\n    }\nmsg.topic = \"INSERT INTO main_data (unix_ts,serial_number,co2_avg,co2_trend,battery) VALUES (?,?,?,?,?)\";\nmsg.payload=[Math.floor(Date.now() / 1000),serial,avg_co2,trend_co2,battery];\nreturn msg;",
+        "g": "d33e588d2ee054ba",
+        "name": "Insert into main data",
+        "func": "let battery=0;\nlet position=0;\n//co2\nlet trend_co2=0;\nlet last_co2=0;\nlet sum_co2=0;\nlet count_co2=0;\nlet avg_co2=0;\nlet serial=\"xxx\";\n//temp\nlet trend_temp=0;\nlet last_temp=0;\nlet sum_temp=0;\nlet count_temp=0;\nlet avg_temp=0;\nif(msg.payload.length > 0){\n    msg.payload.forEach((element) => {     \n        //batt\n        battery=element.battery;\n        //co2\n        if(last_co2<element.co2){trend_co2=1;}\n        else if(last_co2>element.co2){trend_co2=(-1);}   \n        else{trend_co2=0;}\n        last_co2=element.co2;\n        sum_co2+=element.co2;         \n        count_co2++;\n        //temp\n        if(last_temp<element.temperature){trend_temp=1;}\n        else if(last_temp>element.temperature){trend_temp=(-1);}   \n        else{trend_temp=0;}\n        last_temp=element.temperature;\n        sum_temp+=element.temperature;         \n        count_temp++;\n        //serial\n        serial=element.serial_number;     \n        //position\n        position=element.position;\n        });\n    if(count_co2>0){\n        avg_co2=(sum_co2/count_co2);\n        }\n    if (count_temp >0){\n        avg_temp = (sum_temp / count_temp);\n        }\n    }\nmsg.topic = \"INSERT INTO main_data (unix_ts,serial_number,co2_avg,co2_trend,temp_avg,temp_trend,battery,position) VALUES (?,?,?,?,?,?,?,?)\";\nmsg.payload = [Math.floor(Date.now() / 1000), serial, avg_co2, trend_co2, avg_temp, trend_temp,battery,position];\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 800,
-        "y": 560,
+        "x": 720,
+        "y": 620,
         "wires": [
             [
                 "156cefd656a81fcb"
@@ -629,14 +666,193 @@
         "id": "156cefd656a81fcb",
         "type": "mysql",
         "z": "2c41a2bd.aa36ae",
+        "g": "d33e588d2ee054ba",
         "mydb": "aaf3d3de7c4e5dd8",
         "name": "",
-        "x": 1030,
-        "y": 560,
+        "x": 930,
+        "y": 620,
+        "wires": [
+            [
+                "cd8a5b101869bf7e"
+            ]
+        ]
+    },
+    {
+        "id": "cd8a5b101869bf7e",
+        "type": "function",
+        "z": "2c41a2bd.aa36ae",
+        "g": "d33e588d2ee054ba",
+        "name": "clear buffer",
+        "func": "msg.topic = \"TRUNCATE buffer\";\nmsg.payload = [];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 130,
+        "y": 680,
+        "wires": [
+            [
+                "15b65a6acb2a0303"
+            ]
+        ]
+    },
+    {
+        "id": "15b65a6acb2a0303",
+        "type": "mysql",
+        "z": "2c41a2bd.aa36ae",
+        "g": "d33e588d2ee054ba",
+        "mydb": "aaf3d3de7c4e5dd8",
+        "name": "",
+        "x": 310,
+        "y": 680,
         "wires": [
             [
                 "a104cb68d61cceeb"
             ]
+        ]
+    },
+    {
+        "id": "effd0ae8aad650f5",
+        "type": "mqtt in",
+        "z": "2c41a2bd.aa36ae",
+        "g": "e12e191d879e2850",
+        "name": "Temperature",
+        "topic": "node/generic-node:0/thermometer/0:1/temperature",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "29fba84a.b2af58",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 240,
+        "wires": [
+            [
+                "3a33b4e58dd32e33",
+                "d334c622ea183440"
+            ]
+        ]
+    },
+    {
+        "id": "3a33b4e58dd32e33",
+        "type": "ui_gauge",
+        "z": "2c41a2bd.aa36ae",
+        "g": "6775101731c5bd80",
+        "name": "Temperature",
+        "group": "57ff470b.93fdf8",
+        "order": 0,
+        "width": "0",
+        "height": "0",
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "°C",
+        "format": "{{value}} °C",
+        "min": "-20",
+        "max": "40",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "20",
+        "seg2": "25",
+        "diff": false,
+        "className": "",
+        "x": 470,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "d334c622ea183440",
+        "type": "function",
+        "z": "2c41a2bd.aa36ae",
+        "g": "fe317d2a84d43cfa",
+        "name": "Global temperature set",
+        "func": "global.set(\"temperature\",  parseFloat(msg.payload));\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "178905324401a626",
+        "type": "mqtt in",
+        "z": "2c41a2bd.aa36ae",
+        "g": "e12e191d879e2850",
+        "name": "Position",
+        "topic": "node/generic-node:0/orientation",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "29fba84a.b2af58",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 300,
+        "wires": [
+            [
+                "1bcf4e79217f1295",
+                "8018a036369c18dc"
+            ]
+        ]
+    },
+    {
+        "id": "1bcf4e79217f1295",
+        "type": "ui_gauge",
+        "z": "2c41a2bd.aa36ae",
+        "g": "6775101731c5bd80",
+        "name": "Position",
+        "group": "57ff470b.93fdf8",
+        "order": 0,
+        "width": "0",
+        "height": "0",
+        "gtype": "compass",
+        "title": "Position",
+        "label": "",
+        "format": "{{value-1}}",
+        "min": "0",
+        "max": "5",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "20",
+        "seg2": "25",
+        "diff": false,
+        "className": "",
+        "x": 460,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "8018a036369c18dc",
+        "type": "function",
+        "z": "2c41a2bd.aa36ae",
+        "g": "fe317d2a84d43cfa",
+        "name": "Global position set",
+        "func": "global.set(\"position\",  parseInt(msg.payload)-1);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 500,
+        "wires": [
+            []
         ]
     }
 ]
