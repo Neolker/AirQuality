@@ -4,4 +4,6 @@ Gateway was installed on Raspberry Pi 4B 4G with last image hio-raspbian-bookwor
 
 https://docs.hardwario.com/tower/server-raspberry-pi/installation-os
 
+![IoT Gateway](Node-RED.png)
+
 ![IoT Gateway](IoT-Gateway.jpg)
