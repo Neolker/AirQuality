@@ -61,7 +61,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     if (user !== null) {
       setCookie(null, "user", JSON.stringify(user), {
         maxAge: 3600, // 1 hour
-        path: "/",        
+        path: "/",
       });
     } else {
       console.log("Destroying cookie");
@@ -109,9 +109,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         path: "/user/logout/",
       });
       if (response.status === "OK") {
-        setTimeout(() => {
-          setUser(null);
-        }, 1000);
+        setUser(null);
 
         notifications.show({
           title: "Logged Out",
