@@ -11,12 +11,11 @@ import {
   Grid,
   Group,
   Loader,
-  Skeleton,
   Space,
   Text,
   Title,
 } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Devices = () => {
   const { isLoadingDevices, devices, updateDevice, addDevice, deleteDevice } =
@@ -50,7 +49,7 @@ const Devices = () => {
       <Group justify="space-between">
         <Group>
           <Title>Devices</Title>
-          <Badge color="green" size="lg">
+          <Badge color="blue" size="lg">
             {isLoadingDevices ? (
               <Loader color="white" size="xs" type="dots" />
             ) : (
@@ -66,7 +65,7 @@ const Devices = () => {
           devices.map((device) => (
             <Grid.Col span={{ base: 12, md: 6, lg: 4 }} key={device?.device_id}>
               <DeviceCard
-                device_id={device?.device_id}
+                device_id={device?.device_id.toString()} // Fix: Convert device_id to string
                 serial_number={device?.serial_number}
                 name={device?.name}
                 location={device?.location}
@@ -76,6 +75,7 @@ const Devices = () => {
                 onEdit={() => handleEditDevice(device)}
                 onDelete={() => deleteDevice(device?.device_id)}
                 isLoading={isLoadingDevices}
+                status={""}
               />
             </Grid.Col>
           ))}
