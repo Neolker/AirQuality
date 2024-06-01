@@ -19,6 +19,21 @@ export interface DeviceFormValues {
   co2_red: number;
 }
 
+const validateCO2Levels = (values) => {
+  const errors = {};
+
+  if (values.co2_green >= values.co2_yellow) {
+    errors.co2_green = "CO2 Green level must be lower than CO2 Yellow level";
+  }
+  if (values.co2_yellow >= values.co2_red) {
+    errors.co2_yellow = "CO2 Yellow level must be lower than CO2 Red level";
+  }
+  if (values.serial_number.length < 14) {
+    errors.serial_number = "Serial number must be at least 14 characters long";
+  }
+  return errors;
+};
+
 const DeviceDataModalForm = ({
   opened,
   onClose,
@@ -27,36 +42,41 @@ const DeviceDataModalForm = ({
 }: DeviceModalFormProps) => {
   const form = useForm<DeviceFormValues>({
     initialValues: {
-      device_id: initialValues?.device_id || "",
-      serial_number: initialValues?.serial_number || "",
-      name: initialValues?.name || "",
-      location: initialValues?.location || "",
-      co2_green: initialValues?.co2_green || 0,
-      co2_yellow: initialValues?.co2_yellow || 0,
-      co2_red: initialValues?.co2_red || 0,
-    },  
+      device_id: "",
+      serial_number: "",
+      name: "",
+      location: "",
+      co2_green: 1000,
+      co2_yellow: 2000,
+      co2_red: 25000,
+    },
+    validate: validateCO2Levels,
   });
 
   useEffect(() => {
-    form.setInitialValues({
+    form.setValues({
       device_id: initialValues?.device_id || "",
       serial_number: initialValues?.serial_number || "",
       name: initialValues?.name || "",
       location: initialValues?.location || "",
-      co2_green: initialValues?.co2_green || 0,
-      co2_yellow: initialValues?.co2_yellow || 0,
-      co2_red: initialValues?.co2_red || 0,
+      co2_green: initialValues?.co2_green || 1000,
+      co2_yellow: initialValues?.co2_yellow || 2000,
+      co2_red: initialValues?.co2_red || 2500,
     });
   }, [initialValues]);
 
-  console.log(initialValues);
   return (
     <Modal
       opened={opened}
       onClose={onClose}
       title={initialValues ? "Edit device" : "Add device"}
     >
-      <form onSubmit={form.onSubmit(onSubmit)}>
+      <form
+        onSubmit={form.onSubmit((values) => {
+          onSubmit(values);
+          form.reset();
+        })}
+      >
         <TextInput label="Name" {...form.getInputProps("name")} required />
         <TextInput
           label="Serial Number"
