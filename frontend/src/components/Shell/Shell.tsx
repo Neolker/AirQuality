@@ -40,7 +40,7 @@ export function Shell({
       key={item.label}
       onClick={async (event) => {
         setActive(item.link);
-        if (item.label === "Log out ") {
+        if (item.label === "Log out") {
           event.preventDefault();
           await logout();
         }

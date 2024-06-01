@@ -17,7 +17,7 @@ import {
 import { DatePickerInput } from "@mantine/dates";
 import { IconArrowBackUp, IconCalendar } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
-import { use, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 interface SensorData {
   date: string;
@@ -78,14 +78,23 @@ const DevicePage = ({ params }: { params: { device_id: string } }) => {
     setLoading(true);
     const formattedDate = formatDateToDDMMYYYY(date); // Format date to DD.MM.YYYY
     const sensorData = await getSensorData(params.device_id, formattedDate);
-    const formattedData = Object.values(sensorData).map((item: any) => ({
-      date: new Date(item.unix_time * 1000).toISOString().slice(11, 16), // Convert unix time to HH:mm format
-      CO2: parseFloat(item.co2_avg),
-      VOC: parseFloat(item.voc_avg),
-      NOx: parseFloat(item.nox_avg),
-      Temperature: parseFloat(item.temp_avg),
-      Humidity: parseFloat(item.humi_avg),
-    }));
+    const formattedData = Object.values(sensorData).map((item: any) => {
+      const date = new Date(item.unix_time * 1000);
+      date.setHours(date.getHours() + 2); // Convert to UTC +2 hours
+      return {
+        date: date.toISOString().slice(11, 16), // Convert to HH:mm format
+        CO2: parseFloat(item.co2_avg),
+        VOC: parseFloat(item.voc_avg),
+        NOx: parseFloat(item.nox_avg),
+        Temperature: parseFloat(item.temp_avg),
+        Humidity: parseFloat(item.humi_avg),
+        Temp_trend: parseFloat(item.temp_trend),
+        Humi_trend: parseFloat(item.humi_trend),
+        CO2_trend: parseFloat(item.co2_trend),
+        Battery: parseFloat(item.batt_avg),
+        Position: item.position,
+      };
+    });
     setData(formattedData);
     setLoading(false);
   };
@@ -128,7 +137,6 @@ const DevicePage = ({ params }: { params: { device_id: string } }) => {
     <>
       <Button
         variant="outline"
-        color="yellow"
         onClick={() => {
           router.push("/app/devices");
         }}
@@ -210,6 +218,7 @@ const DevicePage = ({ params }: { params: { device_id: string } }) => {
         series={[{ name: "CO2", color: "blue.6" }]}
         curveType="monotone"
         withLegend
+        unit="ppm"
         legendProps={{ verticalAlign: "bottom", height: 50 }}
         dotProps={{ r: 0 }}
         lineChartProps={{ syncId: "air" }}
@@ -232,6 +241,7 @@ const DevicePage = ({ params }: { params: { device_id: string } }) => {
         h={300}
         data={data}
         dataKey="date"
+        unit="°C"
         series={[{ name: "Temperature", color: "orange.6" }]}
         curveType="monotone"
         withLegend
@@ -253,6 +263,7 @@ const DevicePage = ({ params }: { params: { device_id: string } }) => {
         h={300}
         data={data}
         dataKey="date"
+        unit="%"
         series={[{ name: "Humidity", color: "blue.6" }]}
         curveType="monotone"
         withLegend
@@ -260,8 +271,31 @@ const DevicePage = ({ params }: { params: { device_id: string } }) => {
         dotProps={{ r: 0 }}
         lineChartProps={{ syncId: "air" }}
         referenceLines={[
+          { y: 0, label: "0%", color: "red.6" },
           { y: 30, label: "30% or more ↑", color: "green.6" },
           { y: 50, label: "50% or less ↓", color: "green.6" },
+          { y: 80, label: "70% or less ↓", color: "yellow.6" },
+          { y: 100, label: "100% or less ↓", color: "red.6" },
+        ]}
+      />
+
+      <Space h="md" />
+      <Title order={2}>Battery voltage</Title>
+      <Space h="md" />
+      <LineChart
+        h={300}
+        data={data}
+        dataKey="date"
+        series={[{ name: "Battery", color: "gray.6" }]}
+        curveType="monotone"
+        unit="V"
+        withLegend
+        legendProps={{ verticalAlign: "bottom", height: 50 }}
+        dotProps={{ r: 0 }}
+        lineChartProps={{ syncId: "air" }}
+        referenceLines={[
+          { y: 1.5, label: "0%", color: "red.6" },
+          { y: 2, label: "Charge battery!!!", color: "yellow.6" },
         ]}
       />
       {/* <Space h="lg" />
