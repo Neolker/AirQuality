@@ -1,5 +1,7 @@
 # AirQuality
 
+![AirQuality](AirQuality.jpg)
+
 BACK-OFFICE projektu:
 
 URL:
