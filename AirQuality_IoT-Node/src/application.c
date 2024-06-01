@@ -1,15 +1,13 @@
 #include <application.h>
 
-#define BATTERY_UPDATE_INTERVAL (10 * 1000) // 1 minute
+#define BATTERY_UPDATE_INTERVAL (2 * 60 * 1000) // 2 minutes
 
-#define TEMPERATURE_PUB_INTERVAL (10 * 1000)
+#define TEMPERATURE_PUB_INTERVAL (2 * 60 * 1000)
 #define TEMPERATURE_PUB_DIFFERENCE 1.0f
 
 #define CO2_PUB_NO_CHANGE_INTERVAL (60 * 1000) // 1 minute
 #define CO2_PUB_VALUE_CHANGE 50.0f             // 50 ppm
-
 #define CO2_UPDATE_NORMAL_INTERVAL (1 * 60 * 1000) // 1 minute
-
 #define CALIBRATION_DELAY (4 * 60 * 1000)    // 4 minutes
 #define CALIBRATION_INTERVAL (1 * 60 * 1000) // 1 minute
 
@@ -390,6 +388,7 @@ void application_init(void)
     twr_dice_init(&dice, TWR_DICE_FACE_UNKNOWN);
 
     twr_radio_pairing_request("AirQuality", FW_VERSION);
+    twr_radio_pub_string("serial", SERIAL_NUMBER); // Send S/N right after battery voltage
 
     twr_led_pulse(&led, 5000);
 }
