@@ -49,12 +49,11 @@ const Devices = () => {
       <Group justify="space-between">
         <Group>
           <Title>Devices</Title>
-          <Badge color="blue" size="lg">
-            {isLoadingDevices ? (
-              <Loader color="white" size="xs" type="dots" />
-            ) : (
-              devices.length
-            )}
+          <Badge color="green" size="lg">
+            Online: {devices.filter(device => device?.status === "online").length}
+          </Badge>
+          <Badge color="red" size="lg">
+            Offline: {devices.filter(device => device?.status === "offline").length}
           </Badge>
         </Group>
         <Button onClick={handleAddDevice}>Add device</Button>
@@ -75,7 +74,7 @@ const Devices = () => {
                 onEdit={() => handleEditDevice(device)}
                 onDelete={() => deleteDevice(device?.device_id)}
                 isLoading={isLoadingDevices}
-                status={""}
+                status={device?.status}
               />
             </Grid.Col>
           ))}
