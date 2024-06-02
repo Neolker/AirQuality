@@ -2,6 +2,13 @@
 
 ![AirQuality](AirQuality.jpg)
 
+# Web Application
+
+![AirQuality](AirQuality_app_1.png)
+![AirQuality](AirQuality_app_2.png)
+![AirQuality](AirQuality_app_3.png)
+
+
 BACK-OFFICE projektu:
 
 URL:
